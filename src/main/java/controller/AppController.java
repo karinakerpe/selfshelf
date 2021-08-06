@@ -1,5 +1,7 @@
-package com.example.mysql;
+package controller;
 
+import model.User;
+import repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,7 @@ public class AppController {
 	
 	@GetMapping("")
 	public String viewHomePage() {
-		return "index";
+		return "index1";
 	}
 	
 	@GetMapping("/register")

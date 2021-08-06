@@ -1,9 +1,12 @@
 package com.example.mysql;
 
+import com.example.mysql.CustomUserDetails;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import repository.UserRepository;
 
 public class CustomUserDetailsService implements UserDetailsService {
 
