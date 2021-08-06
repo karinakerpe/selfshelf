@@ -1,6 +1,7 @@
 package controller;
 
 import model.User;
+import repository.BookRepository;
 import repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,9 @@ public class AppController {
 	
 	@Autowired
 	private UserRepository repo;
+
+	@Autowired
+	private BookRepository bookRepository;
 	
 	@GetMapping("")
 	public String viewHomePage() {
