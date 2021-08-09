@@ -5,13 +5,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 	
-	private User user;	
+	private User user;
 
 	public CustomUserDetails(User user) {
 		this.user = user;

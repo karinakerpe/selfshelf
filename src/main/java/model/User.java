@@ -1,4 +1,4 @@
-package com.example.mysql;
+package model;
 
 import org.hibernate.annotations.ManyToAny;
 
