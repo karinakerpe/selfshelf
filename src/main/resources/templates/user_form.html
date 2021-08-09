@@ -2,16 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Registration</title>
+	<title>Edit User</title>
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
 <div class="container text-center">
 	<div>
-		<h1>User Registration - Sign Up</h1>
+		<h1>Edit User</h1>
 	</div>
-	<form th:action="@{/process_register}" th:object="${user}"
+
+	<form th:action="@{/users/save}" th:object="${user}"
 		  method="post" style="max-width: 600px; margin: 0 auto;">
+		<input type="hidden" th:field = "*{id}" />
 		<div class="m-3">
 			<div class="form-group row">
 				<label class="col-4 col-form-label">E-mail: </label>
@@ -27,6 +29,7 @@
 						   required minlength="6" maxlength="10"/>
 				</div>
 			</div>
+
 			<div class="form-group row">
 				<label class="col-4 col-form-label">First Name: </label>
 				<div class="col-8">
@@ -43,11 +46,20 @@
 				</div>
 			</div>
 
+			<div class="form-group row">
+				<label class="col-4 col-form-label">Assigned Roles: </label>
+				<div class="col-8">
+					<th:block th:each="role: ${listRoles}">
+						<input type="checkbox" th:field="*{roles}"
+							   th:text="${role.name}" th:value="${role.id}" class="m-2" />
+					</th:block>
+				</div>
+			</div>
+
 			<div>
-				<button type="submit" class="btn btn-primary">Sign Up</button>
+				<button type="submit" class="btn btn-primary">Update</button>
 			</div>
 		</div>
-
 	</form>
 </div>
 </body>

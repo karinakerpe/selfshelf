@@ -14,35 +14,68 @@ import org.springframework.test.annotation.Rollback;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class UserRepositoryTests {
-	
-	@Autowired
-	private UserRepository repo;
-	
+
 	@Autowired
 	private TestEntityManager entityManager;
-	
-	/*@Test
+
+	@Autowired
+	private UserRepository userRepo;
+
+	@Autowired
+	private RoleRepository roleRepo;
+
+
+	@Test
 	public void testCreateUser() {
 		User user = new User();
-		user.setEmail("ghost@gmail.com");
-		user.setPassword("password");
-		user.setFirstName("Casper");
-		user.setLastName("McFadden");
-		
-		User savedUser = repo.save(user);
-		
+		user.setEmail("sveta@gmail.com");
+		user.setPassword("sveta2020");
+		user.setFirstName("Sveta");
+		user.setLastName("Tret");
+
+		User savedUser = userRepo.save(user);
+
 		User existUser = entityManager.find(User.class, savedUser.getId());
-		
-		assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
-	}*/
-	
+
+		assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
+
+	}
+
 	@Test
 	public void testFindUserByEmail() {
-		String email = "jongleur@inbox.lv";
-		
-		User user = repo.findByEmail(email);
-		
+		String email = "star@inbox.lv";
+
+		User user = userRepo.findByEmail(email);
+
 		assertThat(user).isNotNull();
+	}
+	@Test
+	public void testAddRoleToNewUser() {
+		Role roleAdmin = roleRepo.findByName("Admin");
+
+		User user = new User();
+		user.setEmail("eugeny.velkin@gmail.com");
+		user.setPassword("velkin2020");
+		user.setFirstName("Eugeny");
+		user.setLastName("Velkin");
+		user.addRole(roleAdmin);
+
+		User savedUser = userRepo.save(user);
+
+		assertThat(savedUser.getRoles().size()).isEqualTo(1);
+	}
+	@Test
+	public  void testAddRolesToExistingUser() {
+		User user = userRepo.findById(1L).get();
+		Role roleUser = roleRepo.findByName("User");
+		Role roleCustomer = new Role(3L);
+
+		user.addRole(roleUser);
+		user.addRole(roleCustomer);
+
+		User savedUser = userRepo.save(user);
+
+		assertThat(savedUser.getRoles().size()).isEqualTo(2);
 	}
 
 }
