@@ -1,4 +1,6 @@
-import model.Book;
+package com.example.mysql;
+
+import com.example.mysql.model.Book;
 
 import java.util.HashMap;
 import java.util.List;

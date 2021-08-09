@@ -1,17 +1,18 @@
-package controller;
+package com.example.mysql.controller;
 
 import lombok.RequiredArgsConstructor;
-import model.Book;
-import model.BookSearch;
+import com.example.mysql.model.Book;
+import com.example.mysql.model.BookSearch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import service.BookRecordService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import com.example.mysql.service.BookRecordService;
 
 import javax.validation.Valid;
-
-
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;

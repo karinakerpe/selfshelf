@@ -1,5 +1,6 @@
-package model;
+package com.example.mysql.model;
 
+import com.example.mysql.Role;
 import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;

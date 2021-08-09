@@ -1,15 +1,20 @@
 package com.example.mysql;
 
+import com.example.mysql.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.example.mysql.repository.UserRepository;
 
 import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepo;
+
+
 
     public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
         User user = userRepo.findByEmail(email);

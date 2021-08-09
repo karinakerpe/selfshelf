@@ -1,12 +1,10 @@
-package service;
+package com.example.mysql.service;
 
-import model.Book;
-import model.BookSearch;
+import com.example.mysql.model.Book;
+import com.example.mysql.model.BookSearch;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface BookRecordService {

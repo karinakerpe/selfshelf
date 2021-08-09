@@ -1,18 +1,16 @@
-package service;
+package com.example.mysql.service;
 
-import exception.BadRequestException;
-import exception.NotFoundException;
+import com.example.mysql.exception.BadRequestException;
+import com.example.mysql.exception.NotFoundException;
+import com.example.mysql.model.Book;
+import com.example.mysql.model.BookSearch;
+import com.example.mysql.repository.BookRepository;
 import lombok.AllArgsConstructor;
-import model.Book;
-import model.BookSearch;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import repository.BookRepository;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.data.domain.ExampleMatcher.matchingAll;
 
