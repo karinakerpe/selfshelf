@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+><head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Book MAIN PAGE</h1>
+
+<div class="container">
+    <form class="form-signin" method="get" action="/logout">
+        <button sec:authorize="isAuthenticated()"  class="btn btn-primary btn-block" type="submit">LOGOUT</button>
+    </form>
+</div>
+
+<div class="container">
+    <form class="form-signin" method="get" action="/account">
+        <button  class="btn btn-primary btn-block" type="submit">ACCOUNT</button>
+    </form>
+</div>
+</body>
+</html>

@@ -31,7 +31,20 @@ public class AppController {
     public String login() {
         return "redirect:/login";
     }
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/logout";
+    }
 
+    @GetMapping("/account")
+    public String showAccountPage() {
+        return "account";
+    }
+
+    @GetMapping("/book-main")
+    public String showMainBookPage() {
+        return "book-main";
+    }
     @GetMapping("/register")
     public String showSignUpForm(Model model) {
         model.addAttribute("user", new User());
