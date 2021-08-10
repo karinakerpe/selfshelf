@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>User Registration Demo</title>
-	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <meta charset="UTF-8">
+    <title>BOB</title>
 </head>
 <body>
-	<div class="container text-center">
-		<div>
-			<h1>Welcome to Bob in Wonderland!</h1>
-		</div>
-		<div>
-			<h4><a th:href="@{/list_users}">List All Users</a></h4>
-			<h4><a th:href="@{/register}">New User</a></h4>
-			<h4><a th:href="@{/login}">Login</a></h4>
-			<p>
-				<a th:href="@{/forgot_password}" >Forgot your password?</a>
-			</p>
-		</div>
-	</div>
+<h1>MAIN PAGE</h1>
+<h2>WELCOME!</h2>
+<h2>List of books</h2>
+
+<div class="container">
+    <form class="form-signin" method="get" action="/login">
+        <button  class="btn btn-primary btn-block" type="submit">LOGIN</button>
+    </form>
+</div>
+
+<div class="container">
+    <form class="form-signin" method="get" action="/register">
+        <button  class="btn btn-primary btn-block" type="submit">SIGNUP</button>
+    </form>
+</div>
+
 </body>
 </html>

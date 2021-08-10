@@ -1,14 +1,15 @@
-package com.example.mysql;
+package com.example.mysql.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import com.example.mysql.model.User;
+import com.example.mysql.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.example.mysql.model.user.UserRole.USER;
 
 public class CustomUserDetails implements UserDetails {
 	
@@ -20,13 +21,17 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<Role> roles = user.getRoles();
-		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-		for (Role role : roles) {
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
+		Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
+
+		try {
+			Set <SimpleGrantedAuthority> existingAuthorities = user.getUserRole().getGrantedAuthorities();
+		}		catch (NullPointerException e){
+
+			grantedAuthorities.addAll(USER.getGrantedAuthorities());
 		}
-		return authorities;
+
+		return grantedAuthorities;
 	}
 
 	@Override
