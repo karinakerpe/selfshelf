@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.mysql.model.user.UserRole.USER;
+import static com.example.mysql.model.user.UserRole.*;
 
 @RequiredArgsConstructor
 @Service
