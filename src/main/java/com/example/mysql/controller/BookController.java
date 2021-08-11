@@ -26,6 +26,12 @@ public class BookController {
         model.addAttribute("books", bookRecordService.getAllBooks());
         return "books";
     }
+    //page after login
+    @GetMapping("/book-main")
+    public String showMainBookPage(Model model) {
+        model.addAttribute("books",bookRecordService.getAllBooks());
+        return "books";
+    }
 
     @GetMapping("/book/new")
     public String createBookForm(Model model) {

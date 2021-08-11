@@ -2,6 +2,7 @@ package com.example.mysql.controller;
 
 import com.example.mysql.model.user.User;
 import com.example.mysql.security.CurrentUser;
+import com.example.mysql.service.BookRecordService;
 import com.example.mysql.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,16 @@ import javax.validation.Valid;
 public class AppController {
     @Autowired
     private UserService service;
+
+    @Autowired
+    private BookRecordService bookRecordService;
+
 @Autowired
 private CurrentUser currentUser;
 
     @GetMapping
-    public String viewHomePage() {
+    public String viewHomePage(Model model) {
+        model.addAttribute("books", bookRecordService.getAllBooks());
         return "index";
     }
 
@@ -35,10 +41,7 @@ private CurrentUser currentUser;
         return "account";
     }
 
-    @GetMapping("/book-main")
-    public String showMainBookPage() {
-        return "books";
-    }
+
 
 
     @GetMapping("/users")
