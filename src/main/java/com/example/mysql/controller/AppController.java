@@ -1,6 +1,7 @@
 package com.example.mysql.controller;
 
 import com.example.mysql.model.user.User;
+import com.example.mysql.security.CurrentUser;
 import com.example.mysql.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,14 @@ import javax.validation.Valid;
 public class AppController {
     @Autowired
     private UserService service;
-
+@Autowired
+private CurrentUser currentUser;
 
     @GetMapping
     public String viewHomePage() {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "redirect:/login";
-    }
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/logout";
-    }
 
     @GetMapping("/account")
     public String showAccountPage() {
@@ -43,27 +37,17 @@ public class AppController {
 
     @GetMapping("/book-main")
     public String showMainBookPage() {
-        return "book-main";
-    }
-    @GetMapping("/register")
-    public String showSignUpForm(Model model) {
-        model.addAttribute("user", new User());
-
-        return "signup_form";
+        return "books";
     }
 
-    @PostMapping("/process_register")
-    public String processRegistration(User user) {
-        service.saveUserWithDefaultRole(user);
-
-        return "registration_successful";
-
-    }
 
     @GetMapping("/users")
     public String viewPageUsers(Model model) {
-        model.addAttribute("listUsers", service.listAll());
 
+        Long currentUserId = currentUser.getCurrentUserId();
+        User currentUser = service.getById(currentUserId);
+        model.addAttribute("listUsers", service.listAll());
+        model.addAttribute("firstName", currentUser.getFullName());
         return "users";
     }
 

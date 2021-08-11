@@ -9,11 +9,16 @@
 <h1>Book MAIN PAGE</h1>
 
 <div class="container">
-    <form class="form-signin" method="get" action="/logout">
+    <form class="form-signin" method="get" th:action="@{/logout}">
         <button sec:authorize="isAuthenticated()"  class="btn btn-primary btn-block" type="submit">LOGOUT</button>
     </form>
 </div>
 
+<div class="container">
+    <form class="form-signin" method="get" th:action="@{/users}">
+        <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-block" type="submit">SHOW USERS</button>
+    </form>
+</div>
 <div class="container">
     <form class="form-signin" method="get" action="/account">
         <button  class="btn btn-primary btn-block" type="submit">ACCOUNT</button>

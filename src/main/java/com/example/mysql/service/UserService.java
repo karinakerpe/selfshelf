@@ -1,16 +1,17 @@
 package com.example.mysql.service;
 
+import com.example.mysql.exception.UserNotFoundException;
 import com.example.mysql.model.user.User;
+import com.example.mysql.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.mysql.repository.UserRepository;
 
 import java.util.List;
-//this is ENUM import - ROLES USER and ADMIN
-import static com.example.mysql.model.user.UserRole.*;
+
+import static com.example.mysql.model.user.UserRole.USER;
 
 @RequiredArgsConstructor
 @Service
@@ -64,15 +65,12 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User get(Long id) {
+    public User getById (Long id) {
         return userRepo.findById(id).get();
     }
 
 
-    public class UserNotFoundException extends Exception {
-        public UserNotFoundException(String s) {
-        }
-    }
+
 
     public User update(Long id, User user) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -85,5 +83,9 @@ public class UserService {
         existingUser.setLastName(user.getLastName());
 
         return userRepo.save(existingUser);
+    }
+//šis laikam lieks
+    public String getFullName (User user){
+        return user.getFirstName()+" "+user.getLastName();
     }
 }

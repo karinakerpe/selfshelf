@@ -72,6 +72,9 @@ public class User {
     public UserRole getUserRole() {
         return userRole;
     }
+public String getFullName(){
+        return firstName+" "+lastName;
+}
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
