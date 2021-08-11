@@ -1,33 +1,36 @@
 package com.example.mysql.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
-@Data
+
 @Entity
-@Table (name="books")
-//@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "books")
 public class Book {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Title is required")
+
+    @Column(name = "title", nullable = false)
     private String title;
-    @NotBlank(message = "Author is required")
+
+    @Column(name = "author", nullable = false)
     private String author;
-    @Positive(message = "year must be positive")
-    @Min(value = 1000, message = "invalid year")
-    @Max(value = 2021, message = "invalid year")
+
+    @Column(name = "year", nullable = false)
     private Integer year;
-    @NotNull(message = "Pages are required")
+
+    @Column(name = "pages", nullable = false)
     private Integer pages;
 
-    public Book(Long id, @NotBlank(message = "Title is required") String title, @NotBlank(message = "Author is required") String author, @Positive(message = "year must be positive") @Min(value = 1000, message = "invalid year") @Max(value = 2021, message = "invalid year") Integer year, @NotNull(message = "Pages are required") Integer pages) {
+    public Book() {
+
+    }
+
+    public Book(String title, String author, Integer year, Integer pages) {
+        super();
         this.id = id;
         this.title = title;
         this.author = author;
@@ -74,4 +77,7 @@ public class Book {
     public void setPages(Integer pages) {
         this.pages = pages;
     }
+
+
+
 }
