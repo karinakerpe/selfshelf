@@ -1,104 +1,77 @@
 package com.example.mysql.controller;
 
-import lombok.RequiredArgsConstructor;
 import com.example.mysql.model.Book;
-import com.example.mysql.model.BookSearch;
+import com.example.mysql.service.BookRecordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.mysql.service.BookRecordService;
 
-import javax.validation.Valid;
-import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
-@RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/books", produces = APPLICATION_JSON_VALUE)
 public class BookController {
 
+    private BookRecordService bookRecordService;
 
-    private final BookRecordService bookRecordService;
-
-
-    @GetMapping
-    public String index(Model model) {
-        model.addAttribute("pageName", "Hello! Welcome to library!");
-        model.addAttribute("books", bookRecordService.getAll());
-        return "index1";
+    public BookController(BookRecordService bookRecordService) {
+        super();
+        this.bookRecordService = bookRecordService;
     }
 
-    @GetMapping(value = "/searches")
-    public String search( Model model) { //@RequestBody
-        model.addAttribute("pageName", "Book Search");
-        model.addAttribute("books", bookRecordService.getAll());
-        return "search";
+    // handler method to handle the list of books and return model and view???
+    @GetMapping("/books")
+    public String listBooks(Model model) {
+        model.addAttribute("books", bookRecordService.getAllBooks());
+        return "books";
     }
 
-    @GetMapping(value = "/searches2")
-    public String search2(BookSearch bookSearch, Model model) {
-        model.addAttribute("pageName", "Book Search");
-        return "search2";
-    }
+    @GetMapping("/book/new")
+    public String createBookForm(Model model) {
 
-    @PostMapping (value = "/searches2")
-    public String getSearchedBook (@Valid BookSearch bookSearch, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
-            return "search2";
-        }
-        List<Book> books = bookRecordService.search(bookSearch);
-        model.addAttribute("books", books);
-        return "result";
-    }
-
-
-    @GetMapping("/book-add")
-    public String signUp(Model map, Book book) {
-        map.addAttribute("pageName", "Add New Book");
-
-        return "book-add";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteById(@PathVariable("id") Long id, Model model) {
-        bookRecordService.delete(id);
-        return "redirect:/books";//index(model);
-    }
-
-    @GetMapping("/edit/{id}")
-    public String editById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("pageName", "Edit Book");
-
-        Book book = bookRecordService.getById(id);
+        //create student object to hold student form data
+        Book book = new Book();
         model.addAttribute("book", book);
 
-        return "book-edit";
+        return "create_book";
     }
 
-    @PostMapping
-    public String register(@Valid Book book, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "book-add";
-        }
+    @PostMapping("/books")
+    public String saveBook(@ModelAttribute("book") Book book) {
+        bookRecordService.saveBook(book);
 
-        bookRecordService.register(book);
-
-        return "redirect:/books";//index(model);
+        return "redirect:/books";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateBook(@PathVariable("id") Long id, @Valid Book book, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "book-edit";
-        }
-
-        bookRecordService.updateBook(id, book);
-
-        return "redirect:/books";//index(model);
+    @GetMapping("/books/edit/{id}")
+    public String editBookForm(@PathVariable Long id, Model model) {
+        model.addAttribute("book", bookRecordService.getBookById(id));
+        return "edit_book";
     }
+
+    @PostMapping("/books/{id}")
+    public String updateBook(@PathVariable Long id,
+                             @ModelAttribute("book") Book book,
+                             Model model) {
+
+        //get book from database by id
+        Book existingBook = bookRecordService.getBookById(id);
+        existingBook.setId(id);
+        existingBook.setAuthor(book.getAuthor());
+        existingBook.setTitle(book.getTitle());
+        existingBook.setYear(book.getYear());
+        existingBook.setPages(book.getPages());
+
+        //save updated book object
+        bookRecordService.updateBook(existingBook);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/books/{id}")
+    public String deleteBook(@PathVariable Long id) {
+        bookRecordService.deleteBookById(id);
+        return "redirect:/books";
+    }
+
 }
