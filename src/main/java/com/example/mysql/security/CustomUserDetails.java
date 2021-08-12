@@ -23,14 +23,14 @@ public class CustomUserDetails implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
 		Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
-
+		Set <SimpleGrantedAuthority> existingAuthorities;
 		try {
-			Set <SimpleGrantedAuthority> existingAuthorities = user.getUserRole().getGrantedAuthorities();
+			existingAuthorities = user.getUserRole().getGrantedAuthorities();
+			return existingAuthorities;
 		}		catch (NullPointerException e){
 
 			grantedAuthorities.addAll(USER.getGrantedAuthorities());
 		}
-
 		return grantedAuthorities;
 	}
 
