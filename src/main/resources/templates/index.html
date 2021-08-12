@@ -7,8 +7,30 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <!--===============================================================================================-->
 </head>
 <body>
+<div class="container-login100" style="background-image: url('images/signup-bg.jpg');">
+    <div class="wrap-login100">
+    </div>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
 <!--    <a class="navbar-brand" href="#">Catalog</a>-->
@@ -31,8 +53,6 @@
                 <a class="nav-link" th:href="@{/register}">Sign up</a>
             </li>
 
-
-
         </ul>
     </div>
 </nav>
@@ -40,29 +60,58 @@
     <div class = "row">
         <h1>Available Books</h1>
     </div>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table">
 
+                    <div class="row header">
+                        <div class="cell">
+                            <th> Author </th>
+                        </div>
+                        <div class="cell">
+                            <th> Title </th>
+                        </div>
+                        <div class="cell">
+                            <th> Year </th>
+                        </div>
+                        <div class="cell">
+                            <th> Page Count </th>
+                        </div>
+                        <div class="cell">
+                            <th> Actions </th>
+                        </div>
+                    </div>
 
-    <table class = "table table-sm table-bordered">
-        <thead class = "table-dark">
-        <tr>
-            <th> Author </th>
-            <th> Title </th>
-            <th> Year </th>
-            <th> Page Count </th>
+                    <div class="row">
+                        <div class="cell" data-title="Author">
 
-        </tr>
-        </thead>
+                        </div>
+                        <div class="cell" data-title="Title">
 
-        <tbody>
-        <tr th:each = "book: ${books}">
-            <td th:text = "${book.author}"></td>
-            <td th:text = "${book.title}"></td>
-            <td th:text = "${book.year}"></td>
-            <td th:text = "${book.pages}"></td>
+                        </div>
+                        <div class="cell" data-title="Year">
 
+                        </div>
+                        <div class="cell" data-title="Page Count">
+                        </div>
+
+                        <div class="cell" data-title="Actions">
+                        </div>
+                    </div>
+                </div>
+
+                <tbody>
+                <tr th:each = "book: ${books}">
+                    <td th:text = "${book.author}"></td>
+                    <td th:text = "${book.title}"></td>
+                    <td th:text = "${book.year}"></td>
+                    <td th:text = "${book.pages}"></td>
         </tr>
         </tbody>
     </table>
+
+
 
 <!--    <div class="container">-->
 <!--        <form class="form-signin" method="get" action="/login">-->
@@ -77,8 +126,23 @@
 <!--    </div>-->
 
 </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
 </body>
 </html>
-
-
 
