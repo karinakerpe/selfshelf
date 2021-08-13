@@ -1,14 +1,18 @@
 package com.example.mysql.controller;
 
 import com.example.mysql.model.Book;
+import com.example.mysql.model.BookSearch;
 import com.example.mysql.service.BookRecordService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
 public class BookController {
@@ -80,4 +84,20 @@ public class BookController {
         return "redirect:/books";
     }
 
+    @GetMapping(value = "/books/search")
+    public String search(BookSearch bookSearch, Model model) {
+        model.addAttribute("pageName", "Book Search");
+        return "search";
+    }
+
+
+    @PostMapping (value = "/books/search")
+    public String getSearchedBook (@Valid BookSearch bookSearch, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            return "result";
+        }
+        List<Book> books = bookRecordService.search(bookSearch);
+        model.addAttribute("books", books);
+        return "result";
+    }
 }
