@@ -13,52 +13,59 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 
+import static com.example.mysql.model.user.UserRole.*;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	private DataSource dataSource;
-	
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new CustomUserDetailsService();
-	}
-	
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService());
-		authProvider.setPasswordEncoder(passwordEncoder());
-		
-		return authProvider;
-	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-	}
+    @Autowired
+    private DataSource dataSource;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/list_users").authenticated()
-			.anyRequest().permitAll()
-			.and()
-			.formLogin()
-				.loginPage("/login")
-				.usernameParameter("email")
-				.defaultSuccessUrl("/book-main")
-				.permitAll()
-			.and()
-			.logout().logoutSuccessUrl("/").permitAll();
-	}
-	
-	
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+
+        return authProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/","index","/css/*", "/js/*",
+                        "signup_form", "/register", "/process_register",
+                        "registration_successful").permitAll()
+                .antMatchers("/book-main", "books").hasAnyRole(ADMIN.name(), USER.name())
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .defaultSuccessUrl("/book-main")
+                .permitAll()
+                .and()
+                .logout()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/").permitAll();
+    }
+
 
 }

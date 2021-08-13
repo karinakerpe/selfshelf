@@ -51,6 +51,7 @@ private CurrentUser currentUser;
         User currentUser = service.getById(currentUserId);
         model.addAttribute("listUsers", service.listAll());
         model.addAttribute("firstName", currentUser.getFullName());
+        model.addAttribute("permissions", currentUser.getUserRole().getGrantedAuthorities());
         return "users";
     }
 

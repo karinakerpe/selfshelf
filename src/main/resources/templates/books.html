@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
 <head>
 <meta charset="ISO-8859-1">
 <title>Catalog</title>
@@ -9,24 +12,33 @@
 	crossorigin="anonymous">
 </head>
 <body>
+<div class="container-login100" style="background-image: url('images/signup-bg.jpg');">
+	<div class="wrap-login100">
+	</div>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#">Catalog</a>
+	<!-- Brand -->
+	<a class="navbar-brand" href="#">Catalog</a>
 
-  <!-- Toggler/collapsibe Button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	<!-- Toggler/collapsibe Button -->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-  <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/books}">Library Catalog</a>
-      </li>     
-    </ul>
-  </div>
-</nav>
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/books}">Library Catalog</a>
+				</li>
+				<li clas="nav-item">
+					<form class="form-signin"  method="get" th:action="@{/logout}">
+						<button sec:authorize="isAuthenticated()"  class = "btn btn-primary" type="submit">Logout</button>
+					</form>
+				</li>
+
+			</ul>
+		</div>
+	</nav>
 	<div class = "container">
 		<div class = "row">
 			<h1>Available Books</h1>
@@ -41,7 +53,7 @@
 
 		<p class="my-5"><a href="/books/search" class="btn btn-success"><i class="fas fa-search ml-2"> Search
 			Book </i></a></p>
-		
+
 		<table class = "table table-sm table-bordered">
 			<thead class = "table-dark">
 				<tr>
@@ -53,6 +65,55 @@
 				</tr>
 			</thead>
 			
+
+
+	<div class = "row">
+		<div class = "col-lg-3">
+			<a sec:authorize="hasRole('ROLE_ADMIN')" th:href = "@{/book/new}" class = "btn btn-primary btn-sm mb-3">Add New Book</a>
+		</div>
+	</div>
+<div class="limiter">
+	<div class="container-table100">
+		<div class="wrap-table100">
+			<div class="table">
+
+				<div class="row header">
+					<div class="cell">
+						<th> Author </th>
+					</div>
+					<div class="cell">
+						<th> Title </th>
+					</div>
+					<div class="cell">
+						<th> Year </th>
+					</div>
+					<div class="cell">
+						<th> Page Count </th>
+					</div>
+					<div class="cell">
+						<th> Actions </th>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="cell" data-title="Author">
+
+					</div>
+					<div class="cell" data-title="Title">
+
+					</div>
+					<div class="cell" data-title="Year">
+
+					</div>
+					<div class="cell" data-title="Page Count">
+					</div>
+
+					<div class="cell" data-title="Actions">
+					</div>
+				</div>
+			</div>
+		</div>
+
 			<tbody>
 				<tr th:each = "book: ${books}">
 					<td th:text = "${book.author}"></td>
@@ -60,16 +121,33 @@
 					<td th:text = "${book.year}"></td>
 					<td th:text = "${book.pages}"></td>
 					<td>
-						<a th:href = "@{/books/edit/{id}(id = ${book.id})}"
-						class = "btn btn-primary">Update</a>
-						
-						<a th:href = "@{/books/{id}(id = ${book.id})}"
-						class = "btn btn-dark">Delete</a>
+						<a sec:authorize="hasRole('ROLE_ADMIN')" th:href = "@{/books/edit/{id}(id = ${book.id})}"
+						   class = "btn btn-primary">Update</a>
+
+						<a sec:authorize="hasRole('ROLE_ADMIN')" th:href = "@{/books/{id}(id = ${book.id})}"
+						   class = "btn btn-dark">Delete</a>
+
+						<a sec:authorize="hasRole('ROLE_USER')" th:href = "@{/books/edit/{id}(id = ${book.id})}"
+						   class = "btn btn-primary">Reserve - now goes to edit :) </a>
 					</td>
 				</tr>
-			</tbody>
-		</table>
-		
+				</tbody>
+			</div>
+		</div>
 	</div>
+</div>
+
+
+
+
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
 </body>
 </html>
