@@ -18,7 +18,7 @@ import static com.example.mysql.model.user.UserRole.*;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepo;
+    private final UserRepository userRepo;
 
     public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
         User user = userRepo.findByEmail(email);

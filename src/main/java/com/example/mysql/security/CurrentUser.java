@@ -28,5 +28,4 @@ public class CurrentUser {
         User currentUser = userService.getById(getCurrentUserId());
         return currentUser;
     }
-
 }

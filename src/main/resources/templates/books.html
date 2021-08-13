@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Catalog</title>
-	<link rel="stylesheet"
-		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-		  crossorigin="anonymous">
+<meta charset="ISO-8859-1">
+<title>Catalog</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 </head>
 <body>
+<div class="container-login100" style="background-image: url('images/signup-bg.jpg');">
+	<div class="wrap-login100">
+	</div>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 	<!-- Brand -->
 	<a class="navbar-brand" href="#">Catalog</a>
@@ -18,19 +23,48 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
-	<!-- Navbar links -->
-	<div class="collapse navbar-collapse" id="collapsibleNavbar">
-		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link" th:href="@{/books}">Library Catalog</a>
-			</li>
-		</ul>
-	</div>
-</nav>
-<div class = "container">
-	<div class = "row">
-		<h1>Available Books</h1>
-	</div>
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/books}">Library Catalog</a>
+				</li>
+				<li clas="nav-item">
+					<form class="form-signin"  method="get" th:action="@{/logout}">
+						<button sec:authorize="isAuthenticated()"  class = "btn btn-primary" type="submit">Logout</button>
+					</form>
+				</li>
+
+			</ul>
+		</div>
+	</nav>
+	<div class = "container">
+		<div class = "row">
+			<h1>Available Books</h1>
+		</div>
+
+		<div class = "row">
+			<div class = "col-lg-3">
+				<a th:href = "@{/book/new}" class = "btn btn-primary btn-sm mb-3">Add New Book</a>
+			</div>
+		</div>
+
+
+		<p class="my-5"><a href="/books/search" class="btn btn-success"><i class="fas fa-search ml-2"> Search
+			Book </i></a></p>
+
+		<table class = "table table-sm table-bordered">
+			<thead class = "table-dark">
+				<tr>
+					<th> Author </th>
+					<th> Title </th>
+					<th> Year </th>
+					<th> Page Count </th>
+					<th> Actions </th>
+				</tr>
+			</thead>
+
+
 
 	<div class = "row">
 		<div class = "col-lg-3">
