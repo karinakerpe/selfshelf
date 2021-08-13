@@ -1,32 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Table V02</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<!--===============================================================================================-->
+	<meta charset="ISO-8859-1">
+	<title>Catalog</title>
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		  crossorigin="anonymous">
 </head>
 <body>
-<div class="container-login100" style="background-image: url('images/signup-bg.jpg');">
-	<div class="wrap-login100">
-	</div>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 	<!-- Brand -->
 	<a class="navbar-brand" href="#">Catalog</a>
@@ -36,108 +18,58 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
-		<!-- Navbar links -->
-		<div class="collapse navbar-collapse" id="collapsibleNavbar">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" th:href="@{/books}">Library Catalog</a>
-				</li>
-				<li clas="nav-item">
-					<form class="form-signin"  method="get" th:action="@{/logout}">
-						<button sec:authorize="isAuthenticated()"  class = "btn btn-primary" type="submit">Logout</button>
-					</form>
-				</li>
-
-			</ul>
-		</div>
-	</nav>
-	<div class = "container">
-		<div class = "row">
-			<h1>Available Books</h1>
-		</div>
-
+	<!-- Navbar links -->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" th:href="@{/books}">Library Catalog</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class = "container">
+	<div class = "row">
+		<h1>Available Books</h1>
+	</div>
 
 	<div class = "row">
 		<div class = "col-lg-3">
-			<a sec:authorize="hasRole('ROLE_ADMIN')" th:href = "@{/book/new}" class = "btn btn-primary btn-sm mb-3">Add New Book</a>
+			<a th:href = "@{/book/new}" class = "btn btn-primary btn-sm mb-3">Add New Book</a>
 		</div>
 	</div>
-<div class="limiter">
-	<div class="container-table100">
-		<div class="wrap-table100">
-			<div class="table">
 
-				<div class="row header">
-					<div class="cell">
-						<th> Author </th>
-					</div>
-					<div class="cell">
-						<th> Title </th>
-					</div>
-					<div class="cell">
-						<th> Year </th>
-					</div>
-					<div class="cell">
-						<th> Page Count </th>
-					</div>
-					<div class="cell">
-						<th> Actions </th>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="cell" data-title="Author">
+	<p class="my-5"><a href="/books/search" class="btn btn-success"><i class="fas fa-search ml-2"> Search
+		Book </i></a></p>
 
-					</div>
-					<div class="cell" data-title="Title">
+	<table class = "table table-sm table-bordered">
+		<thead class = "table-dark">
+		<tr>
+			<th> Author </th>
+			<th> Title </th>
+			<th> Year </th>
+			<th> Page Count </th>
+			<th> Actions </th>
+		</tr>
+		</thead>
 
-					</div>
-					<div class="cell" data-title="Year">
+		<tbody>
+		<tr th:each = "book: ${books}">
+			<td th:text = "${book.author}"></td>
+			<td th:text = "${book.title}"></td>
+			<td th:text = "${book.year}"></td>
+			<td th:text = "${book.pages}"></td>
+			<td>
+				<a th:href = "@{/books/edit/{id}(id = ${book.id})}"
+				   class = "btn btn-primary">Update</a>
 
-					</div>
-					<div class="cell" data-title="Page Count">
-					</div>
+				<a th:href = "@{/books/{id}(id = ${book.id})}"
+				   class = "btn btn-dark">Delete</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 
-					<div class="cell" data-title="Actions">
-					</div>
-				</div>
-			</div>
-		</div>
-
-			<tbody>
-				<tr th:each = "book: ${books}">
-					<td th:text = "${book.author}"></td>
-					<td th:text = "${book.title}"></td>
-					<td th:text = "${book.year}"></td>
-					<td th:text = "${book.pages}"></td>
-					<td>
-						<a sec:authorize="hasRole('ROLE_ADMIN')" th:href = "@{/books/edit/{id}(id = ${book.id})}"
-						   class = "btn btn-primary">Update</a>
-
-						<a sec:authorize="hasRole('ROLE_ADMIN')" th:href = "@{/books/{id}(id = ${book.id})}"
-						   class = "btn btn-dark">Delete</a>
-
-						<a sec:authorize="hasRole('ROLE_USER')" th:href = "@{/books/edit/{id}(id = ${book.id})}"
-						   class = "btn btn-primary">Reserve - now goes to edit :) </a>
-					</td>
-				</tr>
-				</tbody>
-			</div>
-		</div>
-	</div>
 </div>
-
-
-
-
-<!--===============================================================================================-->
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/bootstrap/js/popper.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
 </body>
 </html>

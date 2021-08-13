@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "signup_form", "/register", "/process_register",
                         "registration_successful").permitAll()
                 .antMatchers("/book-main", "books").hasAnyRole(ADMIN.name(), USER.name())
+                .antMatchers("/users/**").hasRole(ADMIN.name())
                 .and()
                 .formLogin()
                 .loginPage("/login")

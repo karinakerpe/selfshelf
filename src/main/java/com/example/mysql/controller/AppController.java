@@ -26,8 +26,8 @@ public class AppController {
     @Autowired
     private BookRecordService bookRecordService;
 
-@Autowired
-private CurrentUser currentUser;
+    @Autowired
+    private CurrentUser currentUser;
 
     @GetMapping
     public String viewHomePage(Model model) {
@@ -36,12 +36,18 @@ private CurrentUser currentUser;
     }
 
 
-    @GetMapping("/account")
-    public String showAccountPage() {
-        return "account";
+    @GetMapping("/user-account")
+    public String showUserAccountPage() {
+        return "user-account";
     }
 
-
+//    @GetMapping("/admin-account")
+//    public String showAdminAccountPage(Model model) {
+//        Long currentUserId = currentUser.getCurrentUserId();
+//        User currentUser = service.getById(currentUserId);
+//        model.addAttribute("fullName", currentUser.getFullName());
+//        return "admin-account";
+//    }
 
 
     @GetMapping("/users")
@@ -56,10 +62,20 @@ private CurrentUser currentUser;
     }
 
 
-    @PostMapping("/users/edit/{id}")
+    @GetMapping("/users/update/{id}")
+    public String editById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("pageName", "Edit New User");
+
+        User user = service.getById(id);
+        model.addAttribute("user", user);
+
+        return "user_form";
+    }
+
+    @PostMapping("/users/update/{id}")
     public String editUser(@PathVariable("id") Long id, @Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "users_form";
+            return "user_form";
         }
 
         service.update(id, user);
@@ -75,5 +91,6 @@ private CurrentUser currentUser;
         return "redirect:/list_users";
 
     }
+
 
 }
