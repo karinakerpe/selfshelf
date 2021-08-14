@@ -26,10 +26,7 @@ public class Book {
 
     @Column(name = "pages", nullable = false)
     private Integer pages;
-
-    Long userIdReservedBook;
-    Long userIDIssuedBook;
-
+    private BookStatus bookStatus;
 
 
     public Book() {
