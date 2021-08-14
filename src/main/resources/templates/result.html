@@ -52,17 +52,25 @@
                         <td th:text="${book.year}"></td>
                         <td th:text="${book.pages}"></td>
                     </tr>
+
+                    <div>
+                        <a class="btn btn-warning" th:href="@{/books/search}" role="button">Back</a>
+                    </div>
+
                     </tbody>
 
 
                 </table>
-            </div>
-        </div>
-    </div>
-    <p></p>
-    <a class="btn btn-warning" th:href="@{/books}" role="button">Back</a>
-</div>
 
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
 
 
 
@@ -71,5 +79,7 @@
         $('#table').bootstrapTable()
     })
 </script>
+
+
 </body>
 </html>
