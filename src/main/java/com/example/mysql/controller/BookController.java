@@ -15,6 +15,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
+@RequestMapping
 public class BookController {
 
     private BookRecordService bookRecordService;
