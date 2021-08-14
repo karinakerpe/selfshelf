@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -36,9 +37,27 @@ public class AppController {
     }
 
 
-    @GetMapping("/user-account")
+    @GetMapping("/user-reserve")
     public String showUserAccountPage() {
-        return "user-account";
+        return "user_reserve";
+    }
+
+    //page after login
+    @GetMapping("/account")
+    public String showAdminAccountPage(Model model, Principal principal) {
+//        User user = service.getById(id);
+//        model.addAttribute("fullName", user.getFullName());
+//        model.addAttribute("adminId", user.getId());
+
+        String currentUserEmail = principal.getName();
+        User currentUser = service.findUserByEmail(currentUserEmail);
+
+
+        model.addAttribute("fullName", currentUser.getFullName());
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("id", currentUser.getId());
+
+        return "user_account";
     }
 
 //    @GetMapping("/admin-account")
@@ -51,10 +70,10 @@ public class AppController {
 
 
     @GetMapping("/users")
-    public String viewPageUsers(Model model) {
+    public String viewPageUsers(Model model, Principal principal) {
 
-        Long currentUserId = currentUser.getCurrentUserId();
-        User currentUser = service.getById(currentUserId);
+        String currentUserEmail = principal.getName();
+        User currentUser = service.findUserByEmail(currentUserEmail);
         model.addAttribute("listUsers", service.listAll());
         model.addAttribute("firstName", currentUser.getFullName());
         model.addAttribute("permissions", currentUser.getUserRole().getGrantedAuthorities());
@@ -63,34 +82,48 @@ public class AppController {
 
 
     @GetMapping("/users/update/{id}")
-    public String editById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("pageName", "Edit New User");
+    public String editById(@PathVariable("id") Long id, Model model, Principal principal) {
+        String currentUserEmail = principal.getName();
+        User currentUser = service.findUserByEmail(currentUserEmail);
 
+
+        model.addAttribute("pageName", "Edit " + currentUser.getFullName() + " info:");
         User user = service.getById(id);
         model.addAttribute("user", user);
+        model.addAttribute("currentUser", currentUser);
 
         return "user_form";
     }
+
 
     @PostMapping("/users/update/{id}")
     public String editUser(@PathVariable("id") Long id, @Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "user_form";
         }
-
         service.update(id, user);
 
-        return "redirect:/users";
+        try {
+            if (service.getById(id).getUserRole().name().isEmpty()) {
+                return "redirect:/account";
+
+            } else {
+                return "redirect:/users";
+            }
+        } catch (NullPointerException e) {
+            return "redirect:/account";
+        }
+
+        }
+
+
+        @PostMapping("/save")
+        public String saveUser (User user){
+            service.save(user);
+
+            return "redirect:/list_users";
+
+        }
+
+
     }
-
-
-    @PostMapping("/save")
-    public String saveUser(User user) {
-        service.save(user);
-
-        return "redirect:/list_users";
-
-    }
-
-
-}

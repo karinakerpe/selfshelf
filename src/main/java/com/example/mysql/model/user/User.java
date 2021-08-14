@@ -1,10 +1,10 @@
 package com.example.mysql.model.user;
 
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
+@RequiredArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -54,17 +55,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "signup_form", "/register", "/process_register",
                         "registration_successful").permitAll()
                 .antMatchers("/book-main", "books").hasAnyRole(ADMIN.name(), USER.name())
+                .antMatchers("/users/update/{id}").hasAnyRole(ADMIN.name(), USER.name())
                 .antMatchers("/users/**").hasRole(ADMIN.name())
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/book-main")
+                .defaultSuccessUrl("/account")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "Idea-abbc2288")
                 .logoutSuccessUrl("/").permitAll();
     }
 

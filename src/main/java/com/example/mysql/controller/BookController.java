@@ -2,36 +2,39 @@ package com.example.mysql.controller;
 
 import com.example.mysql.model.Book;
 import com.example.mysql.model.BookSearch;
+import com.example.mysql.model.user.User;
 import com.example.mysql.service.BookRecordService;
+import com.example.mysql.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
+@RequiredArgsConstructor
 @Controller
 @RequestMapping
 public class BookController {
-
+@Autowired
     private BookRecordService bookRecordService;
 
-    public BookController(BookRecordService bookRecordService) {
-        super();
-        this.bookRecordService = bookRecordService;
-    }
 
+@Autowired
+    private UserService service;
     // handler method to handle the list of books and return model and view???
     @GetMapping("/books")
-    public String listBooks(Model model) {
+    public String listBooks(Model model, Principal principal) {
+        String currentUserEmail = principal.getName();
+        User currentUser = service.findUserByEmail(currentUserEmail);
+
         model.addAttribute("books", bookRecordService.getAllBooks());
+        model.addAttribute("id", currentUser.getId());
         return "books";
     }
-    //page after login
     @GetMapping("/book-main")
     public String showMainBookPage(Model model) {
         model.addAttribute("books",bookRecordService.getAllBooks());

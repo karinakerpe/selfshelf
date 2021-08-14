@@ -18,7 +18,8 @@
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
     <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/filter-control/bootstrap-table-filter-control.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/filter-control/bootstrap-table-filter-control.min.css">
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
@@ -52,24 +53,28 @@
                         <td th:text="${book.year}"></td>
                         <td th:text="${book.pages}"></td>
                     </tr>
+                    <div>
+                        <a class="btn btn-warning" th:href="@{/books/search}" role="button">Back</a>
+                    </div>
                     </tbody>
 
-
                 </table>
+
             </div>
         </div>
+
     </div>
-    <p></p>
-    <a class="btn btn-warning" th:href="@{/books}" role="button">Back</a>
 </div>
-
-
 
 
 <script type="text/javascript">
     $(function() {
         $('#table').bootstrapTable()
     })
+
+
+
+
 </script>
 </body>
 </html>

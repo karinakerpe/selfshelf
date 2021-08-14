@@ -20,6 +20,11 @@ public class UserService {
     @Autowired
     private final UserRepository userRepo;
 
+    public User findUserByEmail (String email){
+        return userRepo.findByEmail(email);
+    }
+
+
     public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
         User user = userRepo.findByEmail(email);
         if (user != null) {
@@ -54,6 +59,15 @@ public class UserService {
         userRepo.save(user);
 
     }
+    public void saveUser(User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        userRepo.save(user);
+
+    }
+
+
 
     public void save(User user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -81,10 +95,13 @@ public class UserService {
         existingUser.setPassword(encodedPassword);
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
+        existingUser.setUserRole(user.getUserRole());
 
         return userRepo.save(existingUser);
     }
-//šis laikam lieks
+
+
+
     public String getFullName (User user){
         return user.getFirstName()+" "+user.getLastName();
     }

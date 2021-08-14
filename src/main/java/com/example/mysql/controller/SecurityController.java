@@ -32,6 +32,13 @@ public class SecurityController {
         return "signup_form";
     }
 
+    @GetMapping("/register_admin")
+    public String showSignUpFormForAdmin(Model model) {
+        model.addAttribute("user", new User());
+
+        return "signup_form_admin";
+    }
+
     @PostMapping("/process_register")
     public String processRegistration(User user) {
         service.saveUserWithDefaultRole(user);
@@ -39,6 +46,14 @@ public class SecurityController {
         return "registration_successful";
 
     }
+
+    @PostMapping("/process_register_admin")
+    public String processRegistrationAdminAddUser (User user) {
+        service.saveUser(user);
+        return "registration_successful";
+
+    }
+
     @RequestMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);

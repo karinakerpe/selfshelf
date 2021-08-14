@@ -51,60 +51,69 @@
             <div>
                 <li clas="nav-item">
                     <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout</button>
+                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout
+                        </button>
                     </form>
                 </li>
             </div>
         </ul>
     </div>
 </nav>
-
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-3">
-            <a th:href="@{/register_admin}" class="btn btn-warning btn-sm mb-3"> Add
-                New User</a>
-        </div>
-        <div class="col-lg-10">
-            <p></p>
-        </div>
 
+<div class="container text-center">
+    <div>
+        <h1>New User Registration</h1>
     </div>
-<div class="container">
-    <div class="row">
-        <h1>List of All Users</h1>
-    </div>
+    <form th:action="@{/process_register_admin}" th:object="${user}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">E-mail: </label>
+                <div class="col-8">
+                    <input type="email" th:field="*{email}" class="form-control" required/>
+                </div>
+            </div>
 
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Password: </label>
+                <div class="col-8">
+                    <input type="password" th:field="*{password}" class="form-control"
+                           required minlength="6" maxlength="10"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">First Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{firstName}" class="form-control"
+                           required minlength="2" maxlength="20"/>
+                </div>
+            </div>
 
-    <table class="table table-sm table-bordered">
-        <thead class="table-dark">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Last Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{lastName}" class="form-control"
+                           required minlength="2" maxlength="20"/>
+                </div>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group row">
+                <label class="col-4 col-form-label">Set Permissions: </label>
+                <div class="col-4">
+                    <input type="radio" name="role" th:field="*{userRole}" value="ADMIN" > ADMIN
+                    <input type="radio" name="role" th:field="*{userRole}" value="USER"> USER
 
-        <tr>
-            <th>User ID</th>
-            <th>E-mail</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Roles</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user: ${listUsers}">
-            <td th:text="${user.id}">User ID</td>
-            <td th:text="${user.email}">Email</td>
-            <td th:text="${user.firstName}">First Name</td>
-            <td th:text="${user.lastName}">Last Name</td>
-            <td th:text="${user.userRole}">Roles</td>
-            <td>
-                <a th:href="@{/users/update/{id}(id=${user.id})}" class="btn btn-warning">Edit</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                </div>
+            </div>
+
+        </div>
+
+<div>
+    <button type="submit" class="btn btn-primary">Register</button>
 </div>
-</div>
+</form>
 </div>
 </body>
+
 </body>
 </html>
