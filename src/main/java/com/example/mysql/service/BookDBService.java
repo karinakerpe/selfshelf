@@ -3,12 +3,13 @@ package com.example.mysql.service;
 import com.example.mysql.model.Book;
 import com.example.mysql.model.BookSearch;
 import com.example.mysql.repository.BookRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.mysql.model.BookStatus.AVAILABLE;
 import static org.springframework.data.domain.ExampleMatcher.matchingAll;
 
 @Service
@@ -26,8 +27,21 @@ public class BookDBService implements BookRecordService {
         return bookRepository.findAll();
     }
 
+    public List<Book> getAllAvailableBooks() {
+        List<Book> allAvailableBooks = new ArrayList<>();
+        List<Book> allBooks = bookRepository.findAll();
+        for (Book allBook : allBooks) {
+            if (allBook.getBookStatus().equals(AVAILABLE)) {
+                allAvailableBooks.add(allBook);
+            }
+        }
+
+        return allAvailableBooks;
+    }
+
     @Override
     public Book saveBook(Book book) {
+        book.setBookStatus(AVAILABLE);
         return bookRepository.save(book);
     }
 

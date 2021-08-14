@@ -3,6 +3,7 @@ package com.example.mysql.controller;
 import com.example.mysql.model.Book;
 import com.example.mysql.model.BookSearch;
 import com.example.mysql.model.user.User;
+import com.example.mysql.service.BookDBService;
 import com.example.mysql.service.BookRecordService;
 import com.example.mysql.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ import java.util.List;
 public class BookController {
 @Autowired
     private BookRecordService bookRecordService;
+@Autowired
+private BookDBService bookDBService;
 
 
 @Autowired
@@ -31,7 +34,8 @@ public class BookController {
         String currentUserEmail = principal.getName();
         User currentUser = service.findUserByEmail(currentUserEmail);
 
-        model.addAttribute("books", bookRecordService.getAllBooks());
+        model.addAttribute("books", bookDBService.getAllAvailableBooks());
+        model.addAttribute("allBooks", bookDBService.getAllBooks());
         model.addAttribute("id", currentUser.getId());
         return "books";
     }
@@ -53,7 +57,7 @@ public class BookController {
 
     @PostMapping("/books")
     public String saveBook(@ModelAttribute("book") Book book) {
-        bookRecordService.saveBook(book);
+        bookDBService.saveBook(book);
 
         return "redirect:/books";
     }

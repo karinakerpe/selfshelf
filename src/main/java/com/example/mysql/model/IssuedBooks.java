@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 @Data
 @RequiredArgsConstructor
 @Table
@@ -15,8 +15,8 @@ public class IssuedBooks {
     private Long issueId;
     private Long userId;
     private Long bookId;
-    private Date issueStartDate;
-    private Date issueEndDate;
+    private LocalDate issueStartDate;
+    private LocalDate issueEndDate;
 
 
 }

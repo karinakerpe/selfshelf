@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 @Data
 @RequiredArgsConstructor
 @Table
@@ -15,6 +15,6 @@ public class Reservation {
     private Long reservationId;
     private Long userId;
     private Long bookId;
-    private Date reservationStartDate;
-    private Date reservationEndDate;
+    private LocalDate reservationStartDate;
+    private LocalDate reservationEndDate;
 }

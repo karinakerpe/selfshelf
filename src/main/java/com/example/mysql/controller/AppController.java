@@ -50,7 +50,7 @@ public class AppController {
 //        model.addAttribute("adminId", user.getId());
 
         String currentUserEmail = principal.getName();
-        User currentUser = service.findUserByEmail(currentUserEmail);
+            User currentUser = service.findUserByEmail(currentUserEmail);
 
 
         model.addAttribute("fullName", currentUser.getFullName());
