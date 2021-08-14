@@ -110,8 +110,29 @@
         </tr>
         </tbody>
     </table>
+     <br>
+                <br>
+                <div class = "row">
+                    <h5>Random Book Preview</h5>
+                </div>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+                <title>Google Books Embedded Viewer API Example</title>
+                <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+                <script type="text/javascript">
+      google.books.load();
 
+      function initialize() {
+        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+        viewer.load('ISBN:0738531367');
+      }
 
+      google.books.setOnLoadCallback(initialize);
+    </script>
+                </head>
+                <body>
+                <div id="viewerCanvas" style="width: 1110px; height: 500px"></div>
+                </body>
+            </div>
 
 <!--    <div class="container">-->
 <!--        <form class="form-signin" method="get" action="/login">-->
