@@ -1,5 +1,20 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
+
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Catalog</title>
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+    </head>
+
+
+
+
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
 </head>
@@ -33,10 +48,14 @@
             <input type="text" th:field="*{pages}"  class="form-control" id="exampleInputPages">
             <span th:if="${#fields.hasErrors('pages')}" th:errors="*{pages}" class="text-danger"></span>
         </div>
-        <button type="submit" th:href="@{/books/result}" class="btn btn-primary"> Search </button>
+        <button type="submit" th:href="@{/books/result}" class="btn btn-success"> Search </button>
+
     </form>
-</div>
-<a class="btn btn-secondary" th:href="@{/books}" role="button">Back</a>
+    <p></p>
+    <a class="btn btn-warning" th:href="@{/books}" role="button">Back</a>
+
+
+        </div>
 
 </body>
 </html>

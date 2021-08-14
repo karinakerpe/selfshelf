@@ -1,5 +1,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Catalog</title>
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+    </head>
+
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
 
@@ -28,10 +39,10 @@
                        data-show-columns="true">
                     <thead>
                     <tr>
-                        <th data-field="title" data-filter-control="input">Title</th>
-                        <th data-field="author" data-filter-control="input">Author</th>
+                        <th data-field="title" data-filter-control="select">Title</th>
+                        <th data-field="author" data-filter-control="select">Author</th>
                         <th data-field="year" data-filter-control="select">Year</th>
-                        <th data-field="pages" data-filter-control="input">Pages</th>
+                        <th data-field="pages" data-filter-control="select">Pages</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,12 +53,18 @@
                         <td th:text="${book.pages}"></td>
                     </tr>
                     </tbody>
+
+
                 </table>
             </div>
         </div>
     </div>
+    <p></p>
+    <a class="btn btn-warning" th:href="@{/books}" role="button">Back</a>
 </div>
-<a class="btn btn-secondary" th:href="@{/books/search}" role="button">Back</a>
+
+
+
 
 <script type="text/javascript">
     $(function() {
