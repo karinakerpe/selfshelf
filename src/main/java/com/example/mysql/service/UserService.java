@@ -29,7 +29,8 @@ public class UserService {
         User user = userRepo.findByEmail(email);
         if (user != null) {
             user.setResetPasswordToken(token);
-            userRepo.save(user);
+           User newUser =  userRepo.save(user);
+            System.out.println(newUser);
         } else {
             throw new UserNotFoundException("Could not find any user with the email " + email);
         }

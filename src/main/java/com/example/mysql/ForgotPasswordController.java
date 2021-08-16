@@ -2,7 +2,10 @@ package com.example.mysql;
 
 
 import com.example.mysql.exception.UserNotFoundException;
+import com.example.mysql.model.user.User;
+import com.example.mysql.repository.UserRepository;
 import com.example.mysql.service.UserService;
+import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,7 +19,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-
+@RequiredArgsConstructor
 @Controller
 public class ForgotPasswordController {
 
@@ -25,7 +28,8 @@ public class ForgotPasswordController {
 
 @Autowired
     private JavaMailSender mailSender;
-
+@Autowired
+private UserRepository userRepository;
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm(Model model){
         model.addAttribute("pageTitle", "Forgot Password");
@@ -36,20 +40,22 @@ public class ForgotPasswordController {
     public String processForgotPasswordForm(HttpServletRequest request,
                                             Model model){
         String email = request.getParameter("email");
-       String token =  RandomString.make(45);
+       String token =  RandomString.make(30);
+
 
         try {
-            userService.updateResetPasswordToken(token, email);
+           userService.updateResetPasswordToken(token, email);
 
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token"  + token;
 
-            sendEmail(email, resetPasswordLink);
+          sendEmail(email, resetPasswordLink);
 
 
         } catch (UserNotFoundException ex) {
-           model.addAttribute("error", ex.getMessage());
-        } catch (UnsupportedEncodingException | MessagingException e) {
-            model.addAttribute("error", "Error while sending email.");
+          model.addAttribute("error", ex.getMessage());
+      } catch
+        (UnsupportedEncodingException | MessagingException e) {
+           model.addAttribute("error", "Error while sending email.");
         }
 
         return "forgot_password_form";
@@ -59,7 +65,7 @@ public class ForgotPasswordController {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("contact@library.com", "Library Support");
+        helper.setFrom("svetlana.tretjakova@gmail.com", "Library Support");
         helper.setTo(email);
 
         String subject = "Here's the link to reset your password";

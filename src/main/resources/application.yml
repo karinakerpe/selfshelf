@@ -18,7 +18,9 @@ spring:
 
   mail:
     host: smtp.gmail.com
-    password: 22vidusskola
+    password: 29696202
+    protocol: smtp
+    tls: true
     port: 465
     properties:
       mail:
