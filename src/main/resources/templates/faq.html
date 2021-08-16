@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="ISO-8859-1">
-    <title>BOB</title>
+    <title>FAQ</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -45,8 +45,9 @@
                 <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
+                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}">FAQ</a>
             </li>
+
 
             <div>
                 <li clas="nav-item">
@@ -58,13 +59,37 @@
         </ul>
     </div>
 </nav>
-<div class = "container">
-    <div class = "row">
-        <h1> Welcome, <span th:text = "${fullName}"></span></h1>
+
+
+
+<div class="container">
+    <h3>Frequently asked questions (FAQ)</h3>
+
+    <p>Can't  find your answer here? Please reach out to us by
+        sending an email to customerservice@group1.com.</p>
+
+    <h4>For how long can I borrow a book?</h4>
+    <p>Books can be borrowed for 21 days. This period can be extended by one week at a time, with a maximum of three weeks. Extending is free of charge
+        and can only be done if no one else made a reservation for that particular book. The status of your books
+        can be checked on your personal library account </p>
+
+    <h4>How can I reserve a book?</h4>
+    <p>Search for the book via your Library Catalog and click the "Reserve" button. A reservations is valid for 7 days and it is free.
+        If the book is not picked-up after 7 days, the reservation will automatically be canceled.</p>
+
+    <h4>What happens if I can't return a book on time?</h4>
+    A fine of EUR 0,10 per book is charged per day. When keeping a book in your possession that should have been returned, reservations
+    cannot be made and new orders cannot be picked up.
+
+    <p>
+
+    </p>
+    <div>
+        <a class="btn btn-warning" th:href="@{/books}" role="button">Back</a>
     </div>
-
-
 </div>
+
+
 
 </body>
 </html>

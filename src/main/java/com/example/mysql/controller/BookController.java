@@ -108,4 +108,11 @@ private BookDBService bookDBService;
         model.addAttribute("books", books);
         return "result";
     }
+
+    @GetMapping(value = "/books/faq")
+    public String faq(BookSearch bookSearch, Model model) {
+        model.addAttribute("pageName", "Book Search");
+        return "faq";
+    }
+
 }
