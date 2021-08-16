@@ -71,18 +71,24 @@ public class User {
         this.password = password;
     }
 
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-public String getFullName(){
-        return firstName+" "+lastName;
-}
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
     }
 
     public void setResetPasswordToken(String token) {
     }
+
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
 }
+

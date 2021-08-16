@@ -31,20 +31,21 @@ public class UserService {
             user.setResetPasswordToken(token);
             userRepo.save(user);
         } else {
-            throw new UserNotFoundException("Could not find any customer with the email " + email);
+            throw new UserNotFoundException("Could not find any user with the email " + email);
         }
     }
 
-    public User getByResetPasswordToken(String token) {
-        return userRepo.findByResetPasswordToken(token);
-    }
+   public User get(String resetPasswordToken) {
+        return userRepo.findByResetPasswordToken(resetPasswordToken);
+   }
 
     public void updatePassword(User user, String newPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
-        user.setPassword(encodedPassword);
 
+        user.setPassword(encodedPassword);
         user.setResetPasswordToken(null);
+
         userRepo.save(user);
     }
 

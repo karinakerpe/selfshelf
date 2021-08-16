@@ -1,0 +1,29 @@
+version: 2
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    password: 22vidusskola
+    url: jdbc:mysql://localhost:3306/user_registration
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+
+  mail:
+    host: smtp.gmail.com
+    password: 22vidusskola
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    username: svetlana.tretjakova9@gmail.com
