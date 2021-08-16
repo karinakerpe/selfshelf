@@ -25,6 +25,7 @@ public class RegistrationApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+
 		/*
 		 * Book book1 = new Book("Alice's Adventures in Wonderland", "Lewis Carroll",
 		 * 1998, 200); bookRepository.save(book1);

@@ -56,7 +56,7 @@ public class UserService {
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         //setting default Role - USER
-        user.setUserRole(USER);
+        user.setUserRole(ADMIN);
 
         userRepo.save(user);
 

@@ -55,63 +55,13 @@
 
         </ul>
     </div>
+
 </nav>
+
+    <p></p>
 <div class = "container">
     <div class = "row">
-        <h1>Available Books</h1>
-    </div>
-    <div class="limiter">
-        <div class="container-table100">
-            <div class="wrap-table100">
-                <div class="table">
 
-                    <div class="row header">
-                        <div class="cell">
-                            <th> Author </th>
-                        </div>
-                        <div class="cell">
-                            <th> Title </th>
-                        </div>
-                        <div class="cell">
-                            <th> Year </th>
-                        </div>
-                        <div class="cell">
-                            <th> Page Count </th>
-                        </div>
-                        <div class="cell">
-                            <th> Actions </th>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="cell" data-title="Author">
-
-                        </div>
-                        <div class="cell" data-title="Title">
-
-                        </div>
-                        <div class="cell" data-title="Year">
-
-                        </div>
-                        <div class="cell" data-title="Page Count">
-                        </div>
-
-                        <div class="cell" data-title="Actions">
-                        </div>
-                    </div>
-                </div>
-
-                <tbody>
-                <tr th:each = "book: ${books}">
-                    <td th:text = "${book.author}"></td>
-                    <td th:text = "${book.title}"></td>
-                    <td th:text = "${book.year}"></td>
-                    <td th:text = "${book.pages}"></td>
-        </tr>
-        </tbody>
-    </table>
-     <br>
-                <br>
                 <div class = "row">
                     <h5>Random Book Preview</h5>
                 </div>
