@@ -64,7 +64,8 @@
     </div>
 
 
-    <img src="https://media2.giphy.com/media/UQ84N6dIWObZWILqsE/giphy.gif?cid=ecf05e47yokw40o9mjgmg0903osvyix8nuhb0iu09w63rjbr&rid=giphy.gif&ct=g">
+    <img sec:authorize="hasRole('ROLE_USER')" src="https://media2.giphy.com/media/UQ84N6dIWObZWILqsE/giphy.gif?cid=ecf05e47yokw40o9mjgmg0903osvyix8nuhb0iu09w63rjbr&rid=giphy.gif&ct=g">
+    <img sec:authorize="hasRole('ROLE_ADMIN')" src="https://64.media.tumblr.com/8b5615d9aec31dce7f6efa9c3d662a0f/a6074468b010c213-db/s500x750/22da6d00f25de09033e75a5c927dfd46c6afab6d.gifv">
 
 </div>
 </div>

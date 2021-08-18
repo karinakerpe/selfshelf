@@ -48,12 +48,16 @@
             <input type="text" th:field="*{pages}"  class="form-control" id="exampleInputPages">
             <span th:if="${#fields.hasErrors('pages')}" th:errors="*{pages}" class="text-danger"></span>
         </div>
-        <button type="submit" th:href="@{/books/result}" class="btn btn-success"> Search </button>
+        <button type="submit" th:href="@{/books/result}" class="btn btn-info"> Search </button>
 
     </form>
     <p></p>
-    <a class="btn btn-warning" th:href="@{/books}" role="button">Back</a>
+    <a class="btn btn-secondary" th:href="@{/books}" role="button">Back</a>
 
+    <p></p>
+    <div>
+        <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+    </div>
 
         </div>
 

@@ -56,9 +56,15 @@
             </div>
         </ul>
     </div>
+
 </nav>
 
+
     <div sec:authorize="hasRole('ROLE_USER')" class="container">
+        <p></p>
+        <div>
+            <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+        </div>
         <div class="row">
             <h1>Available Books</h1>
             <table class="table table-sm table-bordered">
@@ -89,6 +95,10 @@
         </div>
     </div>
     <div sec:authorize="hasRole('ROLE_ADMIN')" class="container">
+        <p></p>
+        <div>
+            <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+        </div>
         <div class="row">
             <h1>All Books</h1>
             <table class="table table-sm table-bordered">
@@ -114,7 +124,7 @@
                         <a
                                 class="btn btn-secondary">Get Info</a>
                         <a
-                                class="btn btn-warning">Issue</a>
+                                class="btn btn-success">Issue</a>
                         <a th:href="@{/books/edit/{id}(id = ${book.id})}"
                            class="btn btn-warning">Update</a>
 
@@ -139,7 +149,10 @@
         <!--===============================================================================================-->
         <script src="js/main.js"></script>
 
+
     </div>
+
+
 </div>
 </div>
 </body>

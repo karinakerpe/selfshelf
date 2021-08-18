@@ -65,9 +65,11 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-lg-3">
-            <a th:href="@{/register_admin}" class="btn btn-warning btn-sm mb-3"> Add
-                New User</a>
+        <div class="col-lg-15">
+            <p></p>
+
+                <a sec:authorize="hasRole('ROLE_ADMIN')" href="@{/register_admin}" class="btn btn-info">Add
+                    New Book</a>
         </div>
         <div class="col-lg-10">
             <p></p>
@@ -106,7 +108,11 @@
         </tbody>
     </table>
 </div>
+    <div>
+        <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+    </div>
 </div>
+
 </div>
 </body>
 </body>

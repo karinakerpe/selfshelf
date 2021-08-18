@@ -60,16 +60,23 @@
         </ul>
     </div>
 </nav>
+<p></p>
 <div class="container">
     <div class="row">
-        <div class="col-lg-3">
-            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/book/new}" class="btn btn-warning btn-sm mb-3">Add
+        <div class="col-lg-15">
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="@{/book/new}" class="btn btn-info">Add
                 New Book</a>
-        </div>
-        <div class="col-lg-10">
-            <p><a href="/books/search" class="btn btn-success"><i class="fas fa-search ml-2"> Search
-                Book </i></a></p>
-        </div>
+
+<p></p>
+        <div class="col-lg-15">
+           <a href="/books/search" class="btn btn-info">     Search
+                Book  </a>
+<p></p>
+            <div>
+                <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+            </div>
+
+
 
     </div>
 
@@ -118,6 +125,7 @@
                 </tr>
                 </thead>
 
+
                 <tbody>
                 <tr th:each="book: ${allBooks}">
                     <td th:text="${book.author}"></td>
@@ -129,7 +137,7 @@
                         <a
                                 class="btn btn-secondary">Get Info</a>
                         <a
-                                class="btn btn-warning">Issue</a>
+                                class="btn btn-success">Issue</a>
                         <a th:href="@{/books/edit/{id}(id = ${book.id})}"
                            class="btn btn-warning">Update</a>
 
@@ -141,9 +149,13 @@
                 </tr>
                 </tbody>
             </table>
+
+
         </div>
 
 
+
+        <p></p>
         <!--===============================================================================================-->
         <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
@@ -153,6 +165,7 @@
         <script src="vendor/select2/select2.min.js"></script>
         <!--===============================================================================================-->
         <script src="js/main.js"></script>
+
 
     </div>
 </div>
