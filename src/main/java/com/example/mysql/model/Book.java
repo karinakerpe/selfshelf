@@ -28,18 +28,22 @@ public class Book {
     private Integer pages;
     private BookStatus bookStatus;
 
+    @Column(name= "isbn", nullable = false)
+    private String isbn;
+
 
     public Book() {
 
     }
 
-    public Book(String title, String author, Integer year, Integer pages) {
+    public Book(String title, String author, Integer year, Integer pages, String isbn) {
         super();
         this.id = id;
         this.title = title;
         this.author = author;
         this.year = year;
         this.pages = pages;
+        this.isbn = isbn;
     }
 
     public Long getId() {
@@ -80,6 +84,14 @@ public class Book {
 
     public void setPages(Integer pages) {
         this.pages = pages;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
 
