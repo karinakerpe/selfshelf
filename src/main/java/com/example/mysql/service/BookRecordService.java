@@ -18,6 +18,6 @@ public interface BookRecordService {
 
     List <Book> search (BookSearch bookSearch);
 
-
+    List<Book> findRandom();
 
 }
