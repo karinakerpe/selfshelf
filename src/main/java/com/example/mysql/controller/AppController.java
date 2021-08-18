@@ -1,11 +1,13 @@
 package com.example.mysql.controller;
 
+import com.example.mysql.model.Book;
 import com.example.mysql.model.user.User;
 import com.example.mysql.security.CurrentUser;
 import com.example.mysql.service.BookRecordService;
 import com.example.mysql.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -31,8 +34,15 @@ public class AppController {
     private CurrentUser currentUser;
 
     @GetMapping
-    public String viewHomePage(Model model) {
+    public String viewHomePage(Model model, @Param("randomBook") String randomBook) {
         model.addAttribute("books", bookRecordService.getAllBooks());
+
+        List<Book> listRandom = bookRecordService.findRandom();
+        model.addAttribute("randomBook", listRandom);
+
+        String randomIsbn = listRandom.get(0).getIsbn();
+        model.addAttribute("randomIsbn", randomIsbn);
+
         return "index";
     }
 
