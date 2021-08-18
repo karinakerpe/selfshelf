@@ -1,5 +1,6 @@
 package com.example.mysql;
 
+import com.example.mysql.model.Book;
 import com.example.mysql.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,17 +27,13 @@ public class RegistrationApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 
-		/*
-		 * Book book1 = new Book("Alice's Adventures in Wonderland", "Lewis Carroll",
-		 * 1998, 200); bookRepository.save(book1);
-		 *
-		 * Book book2 = new
-		 * Book("The Emperor's New Mind: Concerning Computers, Minds and The Laws of Physics"
-		 * , "Roger Penrose", 1989, 480); bookRepository.save(book2);
-		 *
-		 * Book book3 = new Book("Diary of a Genius", "Salvador Dali", 2017, 160);
-		 * bookRepository.save(book3);
-		 */
+
+		 Book book1 = new Book("Alice's Adventures in Wonderland", "Lewis Carroll", 1998, 200, "019283374X");
+		 bookRepository.save(book1);
+		 Book book2 = new Book("The Emperor's New Mind: Concerning Computers, Minds and The Laws of Physics", "Roger Penrose", 1989, 480, "0192861980");
+		 bookRepository.save(book2);
+		 Book book4 = new Book("Labyrinths", "Jorge Luis Borges", 2007, 240, "0811216993");
+		 bookRepository.save(book4);
 	}
 
 }
