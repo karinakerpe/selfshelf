@@ -72,6 +72,10 @@ public class BookDBService implements BookRecordService {
         Example<Book> bookExample = Example.of(book, matchingAll().withIgnoreNullValues());
         return bookRepository.findAll(bookExample);
     }
+
+    public List<Book> findRandom(){
+        return bookRepository.findRandomBook();
     }
 
+}
 
