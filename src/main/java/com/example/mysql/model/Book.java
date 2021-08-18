@@ -26,24 +26,29 @@ public class Book {
 
     @Column(name = "pages", nullable = false)
     private Integer pages;
+    @Column (name = "book_status")
     private BookStatus bookStatus;
 
     @Column(name= "isbn", nullable = false)
     private String isbn;
+
+    @OneToOne (mappedBy = "book", orphanRemoval = true)
+    private Reservation reservation;
 
 
     public Book() {
 
     }
 
-    public Book(String title, String author, Integer year, Integer pages, String isbn) {
+    public Book(String title, String author, Integer year, Integer pages, String isbn, BookStatus bookStatus) {
         super();
-        this.id = id;
         this.title = title;
         this.author = author;
         this.year = year;
         this.pages = pages;
         this.isbn = isbn;
+        this.bookStatus = bookStatus;
+
     }
 
     public Long getId() {

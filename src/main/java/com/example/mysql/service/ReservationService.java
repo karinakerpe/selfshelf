@@ -1,6 +1,8 @@
 package com.example.mysql.service;
 
+import com.example.mysql.model.Book;
 import com.example.mysql.model.Reservation;
+import com.example.mysql.model.user.User;
 import com.example.mysql.repository.BookRepository;
 import com.example.mysql.repository.ReservationRepository;
 import com.example.mysql.repository.UserRepository;
@@ -20,14 +22,9 @@ public class ReservationService {
     @Autowired
     private final UserRepository userRepository;
 
-    public void reserveBook (Long bookId, Long userId) {
+    public void reserveBook (Book book, User user) {
         LocalDate reservationStartDate = LocalDate.now();
-        LocalDate reservationEndDate = reservationStartDate.plusWeeks(2);
-        Reservation newReservation = new Reservation();
-        newReservation.setReservationStartDate(reservationStartDate);
-        newReservation.setReservationEndDate(reservationEndDate);
-        newReservation.setBookId(bookId);
-        newReservation.setUserId(userId);
-        reservationRepository.save(newReservation);
+        LocalDate reservationEndDate = reservationStartDate.plusDays(7);
+        reservationRepository.save(new Reservation(reservationStartDate, reservationEndDate, user, book));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mysql.model.user;
 
+import com.example.mysql.model.Reservation;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class User {
 
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
+
+    @OneToOne (mappedBy = "book", orphanRemoval = true)
+    private Reservation reservation;
 
     public String getResetPasswordToken() {
         return resetPasswordToken;

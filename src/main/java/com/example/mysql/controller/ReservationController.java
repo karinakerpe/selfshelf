@@ -29,10 +29,9 @@ public class ReservationController {
     public String makeReservation(@PathVariable("id") Long id, Model model, Principal principal){
         String currentUserEmail = principal.getName();
         User currentUser = userService.findUserByEmail(currentUserEmail);
-        Long userId = currentUser.getId();
         Book currentBook = bookRecordService.getBookById(id);
         currentBook.setBookStatus(RESERVED);
-        reservationService.reserveBook(id,userId);
+        reservationService.reserveBook(currentBook, currentUser);
         return "redirect:/books";
 
     }

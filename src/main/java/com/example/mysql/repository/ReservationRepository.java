@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface ReservationRepository extends JpaRepository <Reservation, Long>{
+public interface ReservationRepository extends JpaRepository <Reservation, Long> {
     @Override
     List findAll();
+
+
+//    @Query("SELECT u FROM reservation u WHERE u.user_id = ?1")
+//    List<Long> FindReservedBooksIdByUserId (Long userId);
 }

@@ -3,6 +3,9 @@ package com.example.mysql.service;
 import com.example.mysql.model.Book;
 import com.example.mysql.model.BookSearch;
 import com.example.mysql.repository.BookRepository;
+import com.example.mysql.repository.ReservationRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +15,18 @@ import java.util.List;
 import static com.example.mysql.model.BookStatus.AVAILABLE;
 import static org.springframework.data.domain.ExampleMatcher.matchingAll;
 
+@RequiredArgsConstructor
 @Service
 public class BookDBService implements BookRecordService {
-
+    @Autowired
+    private ReservationRepository reservationRepository;
+    @Autowired
     private BookRepository bookRepository;
 
-    public BookDBService(BookRepository bookRepository) {
-        super();
-        this.bookRepository = bookRepository;
-    }
+//    public BookDBService(BookRepository bookRepository) {
+//        super();
+//        this.bookRepository = bookRepository;
+//    }
 
     @Override
     public List<Book> getAllBooks() {
@@ -38,6 +44,22 @@ public class BookDBService implements BookRecordService {
 
         return allAvailableBooks;
     }
+
+//    public List<Book> getReservedBooksForUserId(Long UserId) {
+//        List<Long> booksIdListReservedByUserId = reservationRepository.FindReservedBooksIdByUserId(UserId);
+//        List<Book> booksByBookId = new ArrayList<>();
+//        List<Book> allBooks = bookRepository.findAll();
+//        for (Long userId : booksIdListReservedByUserId) {
+//            for (Book allBook : allBooks) {
+//                if (allBook.getId().equals(userId)) {
+//                    booksByBookId.add(allBook);
+//                }
+//            }
+//        }
+//
+//        return booksByBookId;
+//    }
+
 
     @Override
     public Book saveBook(Book book) {
@@ -71,7 +93,7 @@ public class BookDBService implements BookRecordService {
 
         Example<Book> bookExample = Example.of(book, matchingAll().withIgnoreNullValues());
         return bookRepository.findAll(bookExample);
-    }
+}
 
     public List<Book> findRandom(){
         return bookRepository.findRandomBook();
