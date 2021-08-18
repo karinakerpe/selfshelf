@@ -1,13 +1,14 @@
 package com.example.mysql.model;
 
 
-
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
-@Entity
+@Entity (name = "Book")
 @Table(name = "books")
 public class Book {
 
@@ -32,8 +33,23 @@ public class Book {
     @Column(name= "isbn", nullable = false)
     private String isbn;
 
-    @OneToOne (mappedBy = "book", orphanRemoval = true)
-    private Reservation reservation;
+//    @ManyToOne
+//    @JoinColumn(
+//            name = "reservation_id",
+//            referencedColumnName = "id",
+//            foreignKey = @ForeignKey(
+//                    name = "reservation_id_fk"
+//            )
+//    )
+//    private Reservation reservation;
+
+    @OneToMany(
+            mappedBy = "book",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Reservation> reservations = new ArrayList<>();
 
 
     public Book() {

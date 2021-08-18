@@ -4,6 +4,8 @@ import com.example.mysql.model.Reservation;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Entity
@@ -31,8 +33,13 @@ public class User {
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
-    @OneToOne (mappedBy = "book", orphanRemoval = true)
-    private Reservation reservation;
+    @OneToMany(
+            mappedBy = "user",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Reservation> reservations = new ArrayList<>();
 
     public String getResetPasswordToken() {
         return resetPasswordToken;

@@ -13,21 +13,31 @@ import java.time.LocalDate;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "reservation_id")
     private Long id;
     private LocalDate reservationStartDate;
     private LocalDate reservationEndDate;
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(
             name = "user_id",
-            referencedColumnName = "id"
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "user_id_fk"
+            )
     )
     private User user;
 
-    @OneToOne (cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(
             name = "book_id",
-            referencedColumnName = "id"
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "book_id_fk"
+            )
     )
     private Book book;
 
