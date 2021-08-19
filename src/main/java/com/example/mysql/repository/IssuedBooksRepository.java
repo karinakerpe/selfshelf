@@ -11,3 +11,4 @@ public interface IssuedBooksRepository extends JpaRepository <IssuedBooks, Long>
     List<IssuedBooks> findAll();
 
 }
+    
