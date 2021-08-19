@@ -23,7 +23,7 @@ public class IssuedBooks {
             nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(
-                    name = "user_id_fk"
+                    name = "issuing_user_id_fk"
             )
     )
     private User user;
@@ -35,7 +35,7 @@ public class IssuedBooks {
             nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(
-                    name = "book_id_fk"
+                    name = "issued_book_id_fk"
             )
     )
     private Book book;
