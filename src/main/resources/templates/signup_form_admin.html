@@ -39,7 +39,7 @@
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/books}">Issued Books</a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/books}">Reserved Books</a>
+                <a  sec:authorize="hasRole('ROLE_ADMIN')"class="nav-link" th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
             </li>
             <li class="nav-item">
                 <a sec:authorize="hasRole('ROLE_USER')" class="nav-link">Edit Account</a>

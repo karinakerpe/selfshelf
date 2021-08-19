@@ -8,5 +8,6 @@ import java.util.List;
 @Repository
 public interface IssuedBooksRepository extends JpaRepository <IssuedBooks, Long> {
     @Override
-    List findAll();
+    List<IssuedBooks> findAll();
+
 }

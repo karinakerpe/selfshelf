@@ -25,7 +25,9 @@ public class ReservationService {
 
     public void reserveBook(Book book, User user) {
         LocalDate reservationStartDate = LocalDate.now();
-        LocalDate reservationEndDate = reservationStartDate.plusDays(7);
+        LocalDate reservationEndDate = LocalDate.now();
+
+//        LocalDate reservationEndDate = reservationStartDate.plusDays(7);
         reservationRepository.save(new Reservation(reservationStartDate, reservationEndDate, user, book));
     }
 
@@ -45,4 +47,16 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+
+    public void deleteReservationsExtendingEndDate (LocalDate date){
+        List<Reservation> allReservations = reservationRepository.findAll();
+        for (Reservation reservation :
+                allReservations) {
+            if(reservation.getReservationEndDate().equals(date)){
+                Long id = reservation.getId();
+                reservationRepository.deleteById(id);
+            }
+
+        }
+    }
 }

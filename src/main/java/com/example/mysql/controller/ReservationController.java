@@ -59,4 +59,12 @@ public class ReservationController {
         return "admin_reservations";
     }
 
+    @GetMapping("/update_list")
+    public String processRegistration() {
+        reservationService.deleteReservationsExtendingEndDate(LocalDate.now());
+
+        return "redirect:/reservation/active_reservation/all";
+
+}
+
 }
