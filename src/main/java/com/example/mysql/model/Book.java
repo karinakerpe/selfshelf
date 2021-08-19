@@ -116,5 +116,19 @@ public class Book {
     }
 
 
+    public BookStatus getBookStatus() {
+        return bookStatus;
+    }
 
+    public void setBookStatus(BookStatus bookStatus) {
+        this.bookStatus = bookStatus;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 }

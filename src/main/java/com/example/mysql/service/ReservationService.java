@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -22,9 +23,26 @@ public class ReservationService {
     @Autowired
     private final UserRepository userRepository;
 
-    public void reserveBook (Book book, User user) {
+    public void reserveBook(Book book, User user) {
         LocalDate reservationStartDate = LocalDate.now();
         LocalDate reservationEndDate = reservationStartDate.plusDays(7);
         reservationRepository.save(new Reservation(reservationStartDate, reservationEndDate, user, book));
     }
+
+    public List<Reservation> findReservationByUserId(Long userId) {
+        return reservationRepository.findReservationsByUserIdEqualsOrderByReservationStartDateAsc(userId);
+    }
+
+    public List<Reservation> findReservationByBookId(Long bookId) {
+        return reservationRepository.findReservationsByBookIdEquals(bookId);
+    }
+    public List<Reservation> findAllActiveReservation (LocalDate date) {
+        return reservationRepository.findReservationsByReservationEndDateAfter(date);
+    }
+
+
+    public List<Reservation> findAllReservations (){
+        return reservationRepository.findAll();
+    }
+
 }

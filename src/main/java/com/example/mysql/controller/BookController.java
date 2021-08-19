@@ -2,9 +2,11 @@ package com.example.mysql.controller;
 
 import com.example.mysql.model.Book;
 import com.example.mysql.model.BookSearch;
+import com.example.mysql.model.Reservation;
 import com.example.mysql.model.user.User;
 import com.example.mysql.service.BookDBService;
 import com.example.mysql.service.BookRecordService;
+import com.example.mysql.service.ReservationService;
 import com.example.mysql.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class BookController {
     private BookRecordService bookRecordService;
 @Autowired
 private BookDBService bookDBService;
+@Autowired
+private ReservationService reservationService;
 
 
 @Autowired
@@ -91,6 +95,17 @@ private BookDBService bookDBService;
         bookRecordService.deleteBookById(id);
         return "redirect:/books";
     }
+
+    @GetMapping("/books/info/{id}")
+    public String getBookInfo (@PathVariable Long id, Model model) {
+        Book currentBook = bookRecordService.getBookById(id);
+        model.addAttribute("books",currentBook);
+        List<Reservation> reservations = reservationService.findReservationByBookId(id);
+        model.addAttribute("reservations",reservations);
+
+        return "books_view_info";
+    }
+
 
     @GetMapping(value = "/books/search")
     public String search(BookSearch bookSearch, Model model) {

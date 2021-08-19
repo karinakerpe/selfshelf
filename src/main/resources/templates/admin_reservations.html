@@ -94,24 +94,31 @@
             <table class="table table-sm table-bordered">
                 <thead class="table-dark">
                 <tr>
-                    <th> Date</th>
                     <th> Author</th>
                     <th> Title</th>
+                    <th> User First Name</th>
+                    <th> User Last Name</th>
+                    <th> Reservation Start Date</th>
                     <th> Reservation End Date</th>
+                    <th> Actions</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr
                     th:each="reservation: ${reservations}">
-                    <td th:text="${reservation.reservationStartDate}"></td>
                     <td th:text="${reservation.book.author}"></td>
                     <td th:text="${reservation.book.title}"></td>
+                    <td th:text="${reservation.user.firstName}"></td>
+                    <td th:text="${reservation.user.LastName}"></td>
+                    <td th:text="${reservation.reservationStartDate}"></td>
                     <td th:text="${reservation.reservationEndDate}"></td>
                     <td>
-
+                        <a method = "post"
+                           class="btn btn-info">Issue Book</a>
                         <a method = "post"
                            class="btn btn-warning">Delete Reservation</a>
+
                     </td>
                 </tr>
                 </tbody>

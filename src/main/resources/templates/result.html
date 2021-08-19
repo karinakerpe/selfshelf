@@ -44,6 +44,7 @@
                         <th data-field="author" data-filter-control="select">Author</th>
                         <th data-field="year" data-filter-control="select">Year</th>
                         <th data-field="pages" data-filter-control="select">Pages</th>
+                        <th data-field="status" data-filter-control="select">Status</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,6 +53,7 @@
                         <td th:text="${book.author}"></td>
                         <td th:text="${book.year}"></td>
                         <td th:text="${book.pages}"></td>
+                        <td th:text="${book.bookStatus}"></td>
                     </tr>
                     <div>
                         <a class="btn btn-secondary" th:href="@{/books/search}" role="button">Back</a>

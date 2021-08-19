@@ -1,6 +1,7 @@
 package com.example.mysql.controller;
 
 import com.example.mysql.model.Book;
+import com.example.mysql.model.Reservation;
 import com.example.mysql.model.user.User;
 import com.example.mysql.service.BookRecordService;
 import com.example.mysql.service.ReservationService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.List;
 
 import static com.example.mysql.model.BookStatus.RESERVED;
 
@@ -35,4 +38,25 @@ public class ReservationController {
         return "redirect:/books";
 
     }
+    @GetMapping("/active_reservation")
+    public String viewReservationsForUserId (Principal principal, Model model){
+        String currentUserEmail = principal.getName();
+        User currentUser = userService.findUserByEmail(currentUserEmail);
+        Long currentUserId = currentUser.getId();
+        List<Reservation> reservations = reservationService.findReservationByUserId(currentUserId);
+        model.addAttribute("reservations", reservations);
+
+
+        return "user_reservations";
+    }
+
+    @GetMapping("/active_reservation/all")
+    public String viewAllActiveReservations (Principal principal, Model model){
+        List<Reservation> reservations = reservationService.findAllActiveReservation(LocalDate.now());
+        model.addAttribute("reservations", reservations);
+
+
+        return "admin_reservations";
+    }
+
 }

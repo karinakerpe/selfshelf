@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="ISO-8859-1">
-    <title>Catalog</title>
+    <title>Bok</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -27,7 +27,7 @@
                 <a class="nav-link" th:href="@{/books}">Library Catalog</a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/users}">Reservations</a>
+                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/reservation/active_reservation}">Reservations</a>
             </li>
             <li class="nav-item">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}">Users</a>
@@ -134,7 +134,7 @@
                     <td th:text="${book.pages}"></td>
                     <td th:text="${book.bookStatus}"></td>
                     <td>
-                        <a
+                        <a th:href = "@{/books/info/{id}(id=${book.id})}"
                                 class="btn btn-secondary">Get Info</a>
                         <a
                                 class="btn btn-success">Issue</a>

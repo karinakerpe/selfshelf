@@ -45,21 +45,6 @@ public class BookDBService implements BookRecordService {
         return allAvailableBooks;
     }
 
-//    public List<Book> getReservedBooksForUserId(Long UserId) {
-//        List<Long> booksIdListReservedByUserId = reservationRepository.FindReservedBooksIdByUserId(UserId);
-//        List<Book> booksByBookId = new ArrayList<>();
-//        List<Book> allBooks = bookRepository.findAll();
-//        for (Long userId : booksIdListReservedByUserId) {
-//            for (Book allBook : allBooks) {
-//                if (allBook.getId().equals(userId)) {
-//                    booksByBookId.add(allBook);
-//                }
-//            }
-//        }
-//
-//        return booksByBookId;
-//    }
-
 
     @Override
     public Book saveBook(Book book) {
@@ -98,6 +83,7 @@ public class BookDBService implements BookRecordService {
     public List<Book> findRandom(){
         return bookRepository.findRandomBook();
     }
+
 
 }
 
