@@ -27,7 +27,7 @@
                 <a class="nav-link" th:href="@{/books}">Library Catalog</a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/users}">Reservations</a>
+                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/reservation/active_reservation}">Reservations</a>
             </li>
             <li class="nav-item">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}">Users</a>
@@ -85,11 +85,12 @@
 
     </p>
     <div>
-        <a class="btn btn-secondary" th:href="@{/books}" role="button">Back</a>
+        <a sec:authorize="isAuthenticated()"class="btn btn-secondary" th:href="@{/books}" role="button">Back</a>
+        <a sec:authorize="!isAuthenticated()"class="btn btn-secondary" href="index.html" th:href="@{/}">Back to Home Page</a>
     </div>
     <p></p>
     <div>
-        <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+        <a sec:authorize="isAuthenticated()"class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
     </div>
 </div>
 
