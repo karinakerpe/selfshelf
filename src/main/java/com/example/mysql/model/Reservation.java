@@ -18,28 +18,28 @@ public class Reservation {
     private LocalDate reservationStartDate;
     private LocalDate reservationEndDate;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "user_id",
-            nullable = false,
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(
-                    name = "user_id_fk"
-            )
-    )
-    private User user;
+        @ManyToOne
+        @JoinColumn(
+                name = "user_id",
+                nullable = false,
+                referencedColumnName = "id",
+                foreignKey = @ForeignKey(
+                        name = "user_id_fk"
+                )
+        )
+        private User user;
 
 
-    @ManyToOne
-    @JoinColumn(
-            name = "book_id",
-            nullable = false,
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(
-                    name = "book_id_fk"
-            )
-    )
-    private Book book;
+        @ManyToOne
+        @JoinColumn(
+                name = "book_id",
+                nullable = false,
+                referencedColumnName = "id",
+                foreignKey = @ForeignKey(
+                        name = "book_id_fk"
+                )
+        )
+        private Book book;
 
 //    private Long userId;
 //    private Long bookId;

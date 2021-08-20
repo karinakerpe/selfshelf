@@ -26,12 +26,9 @@ public class ReservationService {
 
     private final BookDBService bookDBService;
 
-    public void reserveBook(Book book, User user) {
-        LocalDate reservationStartDate = LocalDate.now();
-        LocalDate reservationEndDate = LocalDate.now();
+    public void reserveBook(Book book, User user, LocalDate startDate, LocalDate endDate) {
 
-//        LocalDate reservationEndDate = reservationStartDate.plusDays(7);
-        reservationRepository.save(new Reservation(reservationStartDate, reservationEndDate, user, book));
+        reservationRepository.save(new Reservation(startDate, endDate, user, book));
     }
 
     public List<Reservation> findReservationByUserId(Long userId) {
@@ -45,6 +42,10 @@ public class ReservationService {
         return reservationRepository.findReservationsByReservationEndDateAfter(date);
     }
 
+    public List<Reservation> findAllExpiredReservation (LocalDate date){
+        return reservationRepository.findReservationsByReservationEndDateBefore(date);
+    }
+
 
     public List<Reservation> findAllReservations (){
         return reservationRepository.findAll();
@@ -55,7 +56,7 @@ public class ReservationService {
         List<Reservation> allReservations = reservationRepository.findAll();
         for (Reservation reservation :
                 allReservations) {
-            if(reservation.getReservationEndDate().equals(date)){
+            if(reservation.getReservationEndDate().isBefore(date)){
                 Long id = reservation.getId();
                 reservationRepository.deleteById(id);
                 Book book = reservation.getBook();

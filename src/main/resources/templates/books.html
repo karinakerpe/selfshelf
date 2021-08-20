@@ -100,12 +100,12 @@
                     <td th:text="${book.title}"></td>
                     <td th:text="${book.year}"></td>
                     <td th:text="${book.pages}"></td>
-                    <td>
-<!--                        <form sec:authorize="hasRole('ROLE_USER')" th:action="@{/reservation/{id}/(id=${book.id})}" method= "post"-->
+<!--                    <td>-->
+<!--                        <form sec:authorize="hasRole('ROLE_USER')" th:action="@{/reservation/{id}(id=${book.id})}" method= "post"-->
 <!--                              class="btn btn-warning" type = "submit">Reserve</form>-->
-                        <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/reservation/{id}/(id=${book.id})}"  method="get"
-                           class="btn btn-warning">Reserve</a>
-                    </td>
+                    <td><a th:href="@{/reservation/{id}(id=${book.id})}" class="btn btn-warning">Reserve</a></td>
+
+
                 </tr>
                 </tbody>
             </table>
@@ -138,10 +138,11 @@
                         <a th:href = "@{/books/info/{id}(id=${book.id})}"
                                 class="btn btn-secondary">Get Info</a>
 
-                        <a href="#"
+                        <a th:if="${book.bookStatus.name().equals('AVAILABLE')}" href="#"
                            class="btn btn-success disabled" role="button" aria-disabled="true">Issue</a>
-                        <a
+                        <a th:if="${book.bookStatus.name().equals('RESERVED')}"
                              role = "button"   class="btn btn-success" >Issue</a>
+
                         <a th:href="@{/books/edit/{id}(id = ${book.id})}"
                            class="btn btn-warning">Update</a>
 
