@@ -3,11 +3,13 @@ package com.example.mysql.model;
 import com.example.mysql.model.user.User;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 @Data
 @RequiredArgsConstructor
+@Component
 @Table
 @Entity
 public class IssuedBooks {
@@ -46,6 +48,7 @@ public class IssuedBooks {
         this.issueEndDate = issueEndDate;
         this.user = user;
         this.book = book;
+
     }
 
     public Long getId() {
@@ -87,4 +90,6 @@ public class IssuedBooks {
     public void setBook(Book book) {
         this.book = book;
     }
+
+
 }

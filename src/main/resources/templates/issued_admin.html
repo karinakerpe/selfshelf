@@ -30,7 +30,7 @@
                 <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/users}">Reservations</a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/issued/user}">Issued Books</a>
+                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/issued/issued}">Issued Books</a>
             </li>
             <li class="nav-item" >
                 <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
@@ -90,28 +90,31 @@
 
     <div class="container">
         <div class="row">
-            <h1>Your reserved books</h1>
+            <h1>Issued books</h1>
             <table class="table table-sm table-bordered">
                 <thead class="table-dark">
                 <tr>
                     <th> Date</th>
+                    <th> User</th>
                     <th> Author</th>
                     <th> Title</th>
-                    <th> Reservation End Date</th>
+                    <th> Return Date</th>
+                    <th></th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr
-                    th:each="reservation: ${reservations}">
-                    <td th:text="${reservation.reservationStartDate}"></td>
-                    <td th:text="${reservation.book.author}"></td>
-                    <td th:text="${reservation.book.title}"></td>
-                    <td th:text="${reservation.reservationEndDate}"></td>
+                        th:each="issuedBook: ${issuedBooks}">
+                    <td th:text="${issuedBook.issueStartDate}"></td>
+                    <td th:text="${issuedBook.user}"></td>
+                    <td th:text="${issuedBook.book.author}"></td>
+                    <td th:text="${issuedBook.book.title}"></td>
+                    <td th:text="${issuedBook.issueEndDate}"></td>
                     <td>
 
                         <a method = "post"
-                           class="btn btn-warning">Delete Reservation</a>
+                           class="btn btn-warning">Return Book</a>
                     </td>
                 </tr>
                 </tbody>

@@ -1,7 +1,9 @@
 package com.example.mysql.service;
 
 import com.example.mysql.model.Book;
+import com.example.mysql.model.BookStatus;
 import com.example.mysql.model.IssuedBooks;
+import com.example.mysql.model.Reservation;
 import com.example.mysql.model.user.User;
 import com.example.mysql.repository.IssuedBooksRepository;
 import com.example.mysql.repository.ReservationRepository;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -35,6 +38,14 @@ public class    IssuedBookService {
         issuedBooksRepository.save(new IssuedBooks(issueStartDate, issueEndDate, user, book));
         reservationRepository.deleteById(reservationId);
 
+    }
+
+    public List<IssuedBooks> showAllIssuedBooks() {
+        return (List<IssuedBooks>) issuedBooksRepository.findAll();
+    }
+
+    public List<IssuedBooks> findIssuedBooksByUserId(Long userId) {
+        return issuedBooksRepository.findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(userId);
     }
 
 }

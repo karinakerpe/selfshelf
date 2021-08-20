@@ -3,6 +3,7 @@ package com.example.mysql.model;
 import com.example.mysql.model.user.User;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Table
 @Entity
+@Component
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,6 +42,7 @@ public class Reservation {
             )
     )
     private Book book;
+    private BookStatus bookStatus;
 
 //    private Long userId;
 //    private Long bookId;
@@ -50,5 +53,8 @@ public class Reservation {
         this.reservationEndDate = reservationEndDate;
         this.user = user;
         this.book = book;
+
     }
+
+
 }

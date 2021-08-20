@@ -4,8 +4,10 @@ import com.example.mysql.model.Book;
 import com.example.mysql.model.Reservation;
 import com.example.mysql.model.user.User;
 import com.example.mysql.service.BookRecordService;
+import com.example.mysql.service.IssuedBookService;
 import com.example.mysql.service.ReservationService;
 import com.example.mysql.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.example.mysql.model.BookStatus.ISSUED;
 import static com.example.mysql.model.BookStatus.RESERVED;
 
 @RequiredArgsConstructor
@@ -26,6 +29,9 @@ public class ReservationController {
     private final UserService userService;
     private final BookRecordService bookRecordService;
     private final ReservationService reservationService;
+
+    private final Reservation reservation;
+    private final IssuedBookService issuedBookService;
 
 
     @GetMapping("/{id}")
@@ -38,6 +44,9 @@ public class ReservationController {
         return "redirect:/books";
 
     }
+
+
+
     @GetMapping("/active_reservation")
     public String viewReservationsForUserId (Principal principal, Model model){
         String currentUserEmail = principal.getName();
@@ -64,7 +73,11 @@ public class ReservationController {
         reservationService.deleteReservationsExtendingEndDate(LocalDate.now());
 
         return "redirect:/reservation/active_reservation/all";
+    }
 
-}
+    //////
+
+
+
 
 }

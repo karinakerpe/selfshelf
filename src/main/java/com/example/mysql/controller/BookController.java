@@ -32,7 +32,7 @@ private ReservationService reservationService;
 
 @Autowired
     private UserService service;
-    // handler method to handle the list of books and return model and view???
+
     @GetMapping("/books")
     public String listBooks(Model model, Principal principal) {
         String currentUserEmail = principal.getName();
@@ -52,7 +52,6 @@ private ReservationService reservationService;
     @GetMapping("/book/new")
     public String createBookForm(Model model) {
 
-        //create student object to hold student form data
         Book book = new Book();
         model.addAttribute("book", book);
 
