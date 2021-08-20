@@ -16,3 +16,4 @@ public interface IssuedBooksRepository extends JpaRepository <IssuedBooks, Long>
 
 
 }
+    

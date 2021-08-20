@@ -3,7 +3,6 @@ package com.example.mysql.model;
 import com.example.mysql.model.user.User;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Table
 @Entity
-@Component
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,18 +18,28 @@ public class Reservation {
     private LocalDate reservationStartDate;
     private LocalDate reservationEndDate;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "user_id",
-            nullable = false,
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(
-                    name = "user_id_fk"
-            )
-    )
-    private User user;
+        @ManyToOne
+        @JoinColumn(
+                name = "user_id",
+                nullable = false,
+                referencedColumnName = "id",
+                foreignKey = @ForeignKey(
+                        name = "user_id_fk"
+                )
+        )
+        private User user;
 
 
+        @ManyToOne
+        @JoinColumn(
+                name = "book_id",
+                nullable = false,
+                referencedColumnName = "id",
+                foreignKey = @ForeignKey(
+                        name = "book_id_fk"
+                )
+        )
+        private Book book;
     @ManyToOne
     @JoinColumn(
             name = "book_id",
@@ -53,8 +61,5 @@ public class Reservation {
         this.reservationEndDate = reservationEndDate;
         this.user = user;
         this.book = book;
-
     }
-
-
 }

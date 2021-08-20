@@ -100,11 +100,12 @@
                     <td th:text="${book.title}"></td>
                     <td th:text="${book.year}"></td>
                     <td th:text="${book.pages}"></td>
-                    <td>
+<!--                    <td>-->
+<!--                        <form sec:authorize="hasRole('ROLE_USER')" th:action="@{/reservation/{id}(id=${book.id})}" method= "post"-->
+<!--                              class="btn btn-warning" type = "submit">Reserve</form>-->
+                    <td><a th:href="@{/reservation/{id}(id=${book.id})}" class="btn btn-warning">Reserve</a></td>
 
-                        <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/reservation/{id}/(id=${book.id})}"
-                           class="btn btn-warning">Reserve</a>
-                    </td>
+
                 </tr>
                 </tbody>
             </table>
@@ -136,7 +137,7 @@
                     <td>
                         <a th:href = "@{/books/info/{id}(id=${book.id})}"
                                 class="btn btn-secondary">Get Info</a>
-                        <a th:href = "@{/issued/{id}(id=${book.id})}"
+                        <a
                                 class="btn btn-success">Issue</a>
                         <a th:href="@{/books/edit/{id}(id = ${book.id})}"
                            class="btn btn-warning">Update</a>
@@ -168,7 +169,6 @@
 
 
     </div>
-</div>
 </div>
 </div>
 </body>

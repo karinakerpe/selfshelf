@@ -27,54 +27,38 @@
                 <a class="nav-link" th:href="@{/books}">Library Catalog</a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/users}">Reservations</a>
+                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/reservation/active_reservation}">Reservations</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}">Users</a>
             </li>
             <li class="nav-item">
                 <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/books}">Issued Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}">Edit Account</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/books}">Issued Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/faq}">FAQ</a>
+                <a  sec:authorize="hasRole('ROLE_ADMIN')"class="nav-link" th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
+            </li>
 
             <div>
                 <li clas="nav-item">
-                    <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout
-                        </button>
+                    <form class="form-signin"  method="get" th:action="@{/logout}">
+                        <button sec:authorize="isAuthenticated()"  class = "btn btn-secondary" type="submit">Logout</button>
                     </form>
                 </li>
             </div>
         </ul>
     </div>
 </nav>
-<!--	<nav class="navbar navbar-expand-md bg-dark navbar-dark">-->
-<!--	&lt;!&ndash; Brand &ndash;&gt;-->
-<!--	<a class="navbar-brand" href="#">Catalog</a>-->
 
-<!--	&lt;!&ndash; Toggler/collapsibe Button &ndash;&gt;-->
-<!--	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">-->
-<!--		<span class="navbar-toggler-icon"></span>-->
-<!--	</button>-->
-
-<!--		&lt;!&ndash; Navbar links &ndash;&gt;-->
-<!--		<div class="collapse navbar-collapse" id="collapsibleNavbar">-->
-<!--			<ul class="navbar-nav">-->
-<!--				<li class="nav-item">-->
-<!--					<a class="nav-link" th:href="@{/books}">Library Catalog</a>-->
-<!--				</li>-->
-<!--				<li clas="nav-item">-->
-<!--					<form class="form-signin"  method="get" th:action="@{/logout}">-->
-<!--						<button sec:authorize="isAuthenticated()"  class = "btn btn-primary" type="submit">Logout</button>-->
-<!--					</form>-->
-<!--				</li>-->
-
-<!--			</ul>-->
-<!--		</div>-->
-<!--	</nav>-->
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
@@ -89,20 +73,20 @@
 
     </div>
     <div>
-        <a class="btn btn-info" th:href="@{/reservation/update_list}" method="GET">Update Reservation List
+        <a class="btn btn-info" th:href="@{/reservation/update_list}" >Update Reservation List
         </a>
 
     </div>
     <div class="container">
         <div class="row">
-            <h1>All reserved books</h1>
+            <h1> Active Reservations on <span th:text = "${date}"></span></h1>
             <table class="table table-sm table-bordered">
                 <thead class="table-dark">
                 <tr>
                     <th> Author</th>
                     <th> Title</th>
-                    <th> User First Name</th>
-                    <th> User Last Name</th>
+                    <th> User Id</th>
+                    <th> User name</th>
                     <th> Reservation Start Date</th>
                     <th> Reservation End Date</th>
                     <th> Actions</th>
@@ -111,11 +95,11 @@
 
                 <tbody>
                 <tr
-                        th:each="reservation: ${reservations}">
+                        th:each="reservation: ${activeReservations}">
                     <td th:text="${reservation.book.author}"></td>
                     <td th:text="${reservation.book.title}"></td>
-                    <td th:text="${reservation.user.firstName}"></td>
-                    <td th:text="${reservation.user.LastName}"></td>
+                    <td th:text="${reservation.user.id}"></td>
+                    <td th:text="${reservation.user.getFullName}"></td>
                     <td th:text="${reservation.reservationStartDate}"></td>
                     <td th:text="${reservation.reservationEndDate}"></td>
                     <td>
@@ -131,6 +115,38 @@
 
         </div>
 
+        <div class="container">
+            <div class="row">
+                <h2>Expired Reservations</h2>
+                <table class="table table-sm table-bordered">
+                    <thead class="table-secondary">
+                    <tr>
+                        <th> Author</th>
+                        <th> Title</th>
+                        <th> User Id</th>
+                        <th> User name</th>
+                        <th> Reservation Start Date</th>
+                        <th class="table-danger"> Reservation End Date</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr
+                            th:each="reservation: ${expiredReservations}">
+                        <td th:text="${reservation.book.author}"></td>
+                        <td th:text="${reservation.book.title}"></td>
+                        <td th:text="${reservation.user.id}"></td>
+                        <td th:text="${reservation.user.getFullName}"></td>
+                        <td th:text="${reservation.reservationStartDate}"></td>
+                        <td th:text="${reservation.reservationEndDate}"></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
 
         <!--===============================================================================================-->
         <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -144,6 +160,7 @@
 
 
     </div>
+</div>
 </div>
 </body>
 </html>

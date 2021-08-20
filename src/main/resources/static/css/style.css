@@ -183,6 +183,7 @@ a:focus {
   background-size: 42px;
 }
 
+
 /*end header section*/
 .slider_section {
   height: 90%;
@@ -198,6 +199,7 @@ a:focus {
 .slider_section #carouselExampleIndicators {
   width: 100%;
 }
+
 
 .slider_section .detail-box {
   display: -webkit-box;
@@ -924,6 +926,24 @@ a:focus {
 .footer_section a {
   color: #787878;
 }
+.buttons {
+    width: 100%;
+    display: flex;
+
+    align-items: center;
+    margin-top: 9px;
+}
+.twitter
+{
+    border:1px solid rgb(102, 179, 255);
+    border-radius: 4px;
+    background-color: rgb(102, 179, 255);
+    color: white;
+    text-align: center;
+    font-size: 1.8em;
+	width: 60px;
+	height: 35px;
+	line-height: 40px;
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
