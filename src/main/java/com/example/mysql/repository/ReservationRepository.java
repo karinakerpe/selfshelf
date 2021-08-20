@@ -27,4 +27,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findReservationsByReservationEndDateBefore(LocalDate date);
 
+    @Override
+    void deleteById(Long id);
 }

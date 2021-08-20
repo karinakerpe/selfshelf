@@ -32,21 +32,26 @@ public class IssuedBookController {
     private final BookRecordService bookRecordService;
     private final ReservationService reservationService;
     private final IssuedBookService issuedBookService;
+    @Autowired
     private final Reservation reservation;
     private final IssuedBooks issuedBooks;
 
     @GetMapping("/{id}") // Admin
     public String issueBook (@PathVariable("id") Long id, Model model, Principal principal) {
-        Long reservationId = reservation.getId();
+
         Book currentBook = bookRecordService.getBookById(id);
-        //String currentUserEmail = principal.getName();
-        //User currentUser = userService.findUserByEmail(currentUserEmail);
+        Reservation currentReservation = new Reservation();
 
-        User bookUser = reservation.getUser();
+        //Long reservationId = 0L;
+        List<Reservation> reservationIdList = currentBook.getReservations();
+        for (Reservation reservation:reservationIdList
+             ) {
+            currentReservation = reservation;
+        }
+        reservationIdList.clear();
 
-        //issuedBooks.setUser(bookUser);
-        currentBook.setBookStatus(ISSUED);
-        issuedBookService.issueBookWithActiveReservation(currentBook, bookUser, reservationId);
+        issuedBookService.issueBookWithActiveReservation(currentBook, currentReservation.getUser());
+        reservationService.deleteByIdUpdatingBookStatus(currentReservation.getId());
         return "redirect:/books";
 
     }
@@ -59,8 +64,6 @@ public class IssuedBookController {
         List<IssuedBooks> issuedBooks = issuedBookService.findIssuedBooksByUserId(currentUserId);
         model.addAttribute("issuedBooks", issuedBooks);
 
-        //List<IssuedBooks> issuedBooks = issuedBookService.showAllIssuedBooks();
-        //model.addAttribute("issuedBooks", issuedBooks);
         issuedBookService.showAllIssuedBooks();
 
         return "issued_admin";

@@ -168,6 +168,7 @@
             <table class="table table-sm table-bordered">
                 <thead class="table-secondary">
                 <tr>
+                    <th> Issue Id</th>
                     <th> Issue date</th>
                     <th> Issued to</th>
                     <th> Issue end date</th>
@@ -185,6 +186,7 @@
                 </tr>
                 <tr th:if="${!reservations.isEmpty}"
                     th:each="reservation: ${reservations}">
+                    <td th:text="${reservation.id}"></td>
                     <td th:text="${reservation.reservationStartDate}"></td>
                     <td th:text="${reservation.user.getFullName}"></td>
                     <td th:text="${reservation.reservationEndDate}"></td>

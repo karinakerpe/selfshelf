@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -65,5 +66,14 @@ public class ReservationService {
             }
 
         }
+    }
+
+    public Optional<Reservation> findReservationById(Long id) {
+        return reservationRepository.findById(id);
+    }
+
+    public void deleteByIdUpdatingBookStatus(Long id) {
+
+        reservationRepository.deleteById(id);
     }
 }

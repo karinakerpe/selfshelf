@@ -137,8 +137,13 @@
                     <td>
                         <a th:href = "@{/books/info/{id}(id=${book.id})}"
                                 class="btn btn-secondary">Get Info</a>
-                        <a
-                                class="btn btn-success">Issue</a>
+                        <a th:if="${book.bookStatus.name().equals('AVAILABLE')}" href="#"
+                           class="btn btn-success disabled" role="button" aria-disabled="true">Issue</a>
+                        <a th:if="${book.bookStatus.name().equals('RESERVED')}" th:href = "@{/issued/{id}(id=${book.id})}"
+                           class="btn btn-success" >Issue</a>
+                        <a th:if="${book.bookStatus.name().equals('ISSUED')}" href="#"
+                           class="btn btn-success disabled" role="button" aria-disabled="true">Issue</a>
+
                         <a th:href="@{/books/edit/{id}(id = ${book.id})}"
                            class="btn btn-warning">Update</a>
 

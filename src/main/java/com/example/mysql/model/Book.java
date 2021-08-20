@@ -45,8 +45,7 @@ public class Book {
 
     @OneToMany(
             mappedBy = "book",
-            orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+
             fetch = FetchType.LAZY
     )
     private List<Reservation> reservations = new ArrayList<>();

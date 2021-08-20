@@ -19,6 +19,7 @@ public class IssuedBooks {
     private Long id;
     private LocalDate issueStartDate;
     private LocalDate issueEndDate;
+    private IssueStatus issueStatus;
     @ManyToOne
     @JoinColumn(
             name = "user_id",
@@ -43,11 +44,12 @@ public class IssuedBooks {
     private Book book;
 
 
-    public IssuedBooks(LocalDate issueStartDate, LocalDate issueEndDate, User user, Book book) {
+    public IssuedBooks(LocalDate issueStartDate, LocalDate issueEndDate, User user, Book book, IssueStatus issueStatus) {
         this.issueStartDate = issueStartDate;
         this.issueEndDate = issueEndDate;
         this.user = user;
         this.book = book;
+        this.issueStatus = issueStatus;
 
     }
 
@@ -91,5 +93,11 @@ public class IssuedBooks {
         this.book = book;
     }
 
+    public IssueStatus getIssueStatus() {
+        return issueStatus;
+    }
 
+    public void setIssueStatus(IssueStatus issueStatus) {
+        this.issueStatus = issueStatus;
+    }
 }
