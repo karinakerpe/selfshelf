@@ -65,7 +65,7 @@ private UserRepository userRepository;
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("svetlana.tretjakova@gmail.com", "Library Support");
+        helper.setFrom("bob.in.wonderland.library@gmail.com", "Library Support");
         helper.setTo(email);
 
         String subject = "Here's the link to reset your password";

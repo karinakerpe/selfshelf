@@ -5,20 +5,32 @@ server:
     context-path: /
 
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 160875939509018
+            client-secret: edd8459d33942a2ef361c8f40afcfa2f
+            scope:
+              - email
+              - public_profile
   datasource:
     password: 22vidusskola
     url: jdbc:mysql://localhost:3306/user_registration
     username: root
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
         show_sql: true
 
   mail:
     host: smtp.gmail.com
-    password: 29696202
+    password: Ac29696202!
     protocol: smtp
     tls: true
     port: 465
@@ -28,4 +40,4 @@ spring:
           auth: true
           starttls:
             enable: true
-    username: svetlana.tretjakova9@gmail.com
+    username: bob.in.wonderland.library@gmail.com

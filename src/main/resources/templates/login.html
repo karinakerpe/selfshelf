@@ -79,9 +79,15 @@
         <label for="password">Password</label>:
         <input type="password" id="password" name="password" /> <br />
         <input type="submit" value="Log in" />
+        <script src="fbscript.js"></script>
+
         <p>
             <a th:href="@{/forgot_password}"> Forgot your password? </a>
         </p>
+        <div>
+            <a class="btn btn-lg btn-secondary fab fa-facebook"
+               th:href="@{/oauth2/authorization/facebook}">&nbsp;&nbsp;Continue with Facebook</a>
+        </div>
     </form>
     <section class="info_section layout_padding">
         <div class="container">

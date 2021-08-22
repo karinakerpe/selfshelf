@@ -1,5 +1,7 @@
 package com.example.mysql.security;
 
+import com.example.mysql.security.oauth2.OAuth2LoginSuccessHandler;
+import com.example.mysql.security.oauth2.UserOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,6 +66,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/account")
                 .permitAll()
                 .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(oAuth2UserService)
+                .and()
+                .successHandler(oAuth2LoginSuccessHandler)
+                .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
@@ -72,6 +81,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID", "Idea-abbc2288")
                 .logoutSuccessUrl("/").permitAll();
     }
+@Autowired
+private UserOAuth2UserService oAuth2UserService;
 
-
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 }
