@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class IssuedBooks {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "reservation_id")
+    @Column (name = "issue_id")
     private Long id;
     private LocalDate issueStartDate;
     private LocalDate issueEndDate;

@@ -11,15 +11,21 @@
           crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
-
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+    </head>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
@@ -27,23 +33,31 @@
                 <a class="nav-link" th:href="@{/books}">Library Catalog</a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/users}">Reservations</a>
+                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/reservation/active_reservation}">Reservations</a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/issued/issued}">Issued Books</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}">Users</a>
             </li>
-            <li class="nav-item" >
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/issued/user}">Issued Books</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/issued/admin}">Issued Books</a>
+            </li>
+            <li class="nav-item">
+                <a  sec:authorize="hasRole('ROLE_ADMIN')"class="nav-link" th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
             </li>
 
-
             <div>
                 <li clas="nav-item">
-                    <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout</button>
+                    <form class="form-signin"  method="get" th:action="@{/logout}">
+                        <button sec:authorize="isAuthenticated()"  class = "btn btn-secondary" type="submit">Logout</button>
                     </form>
                 </li>
             </div>
@@ -96,6 +110,7 @@
                 <tr>
                     <th> Date</th>
                     <th> User</th>
+                    <th> Book Id</th>
                     <th> Author</th>
                     <th> Title</th>
                     <th> Return Date</th>
@@ -107,22 +122,21 @@
                 <tr
                         th:each="issuedBook: ${issuedBooks}">
                     <td th:text="${issuedBook.issueStartDate}"></td>
-                    <td th:text="${issuedBook.user}"></td>
+                    <td th:text="${issuedBook.user.getFullName}"></td>
+                    <td th:text="${issuedBook.book.id}"></td>
                     <td th:text="${issuedBook.book.author}"></td>
                     <td th:text="${issuedBook.book.title}"></td>
                     <td th:text="${issuedBook.issueEndDate}"></td>
-                    <td>
+                    <td><a th:href="@{/issued/return/{id}(id=${issuedBook.id})}" class="btn btn-warning">Return Book</a></td>
 
-                        <a method = "post"
-                           class="btn btn-warning">Return Book</a>
+                    <!--                        <a method = "post"-->
+                    <!--                           class="btn btn-warning">Return Book</a>-->
                     </td>
                 </tr>
                 </tbody>
             </table>
 
         </div>
-
-
 
 
         <!--===============================================================================================-->
@@ -134,7 +148,6 @@
         <script src="vendor/select2/select2.min.js"></script>
         <!--===============================================================================================-->
         <script src="js/main.js"></script>
-
 
 
     </div>

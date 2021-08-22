@@ -1,7 +1,6 @@
 package com.example.mysql.service;
 
 import com.example.mysql.model.Book;
-import com.example.mysql.model.BookStatus;
 import com.example.mysql.model.Reservation;
 import com.example.mysql.model.user.User;
 import com.example.mysql.repository.BookRepository;
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.mysql.model.BookStatus.AVAILABLE;
 
 @RequiredArgsConstructor
 @Service
@@ -39,34 +40,57 @@ public class ReservationService {
     public List<Reservation> findReservationByBookId(Long bookId) {
         return reservationRepository.findReservationsByBookIdEquals(bookId);
     }
-    public List<Reservation> findAllActiveReservation (LocalDate date) {
+
+    public List<Reservation> findAllActiveReservation(LocalDate date) {
         return reservationRepository.findReservationsByReservationEndDateAfter(date);
     }
 
-    public List<Reservation> findAllExpiredReservation (LocalDate date){
+    public List<Reservation> findAllExpiredReservation(LocalDate date) {
         return reservationRepository.findReservationsByReservationEndDateBefore(date);
     }
 
 
-    public List<Reservation> findAllReservations (){
+    public List<Reservation> findAllReservations() {
         return reservationRepository.findAll();
     }
 
 
-    public void deleteReservationsExtendingEndDate (LocalDate date){
+    public void deleteReservationsExtendingEndDate(LocalDate date) {
         List<Reservation> allReservations = reservationRepository.findAll();
         for (Reservation reservation :
                 allReservations) {
-            if(reservation.getReservationEndDate().isBefore(date)){
+            if (reservation.getReservationEndDate().isBefore(date)) {
                 Long id = reservation.getId();
-                reservationRepository.deleteById(id);
                 Book book = reservation.getBook();
-                book.setBookStatus(BookStatus.AVAILABLE);
+                book.setBookStatus(AVAILABLE);
+                List<Reservation> currentBookReservations = book.getReservations();
+                currentBookReservations.clear();
+                book.setReservations(currentBookReservations);
                 bookDBService.updateBook(book);
+                reservationRepository.deleteById(id);
+
             }
 
         }
     }
+
+
+    public void deleteReservationByBookIdAndUserId(Long bookId, Long userId) {
+        List<Reservation> reservations = reservationRepository.findReservationsByBookIdEqualsAndUserIdEquals(bookId, userId);
+        //TODO: this is not done !!!!!!! Need more actions
+    }
+
+    public void deleteReservationById(Long reservationId) {
+        Reservation reservation = reservationRepository.getById(reservationId);
+        Book reservedBook = reservation.getBook();
+        List<Reservation> reservationListForBook = reservedBook.getReservations();
+        reservationListForBook.clear();
+        reservedBook.setReservations(reservationListForBook);
+        reservedBook.setBookStatus(AVAILABLE);
+        bookDBService.updateBook(reservedBook);
+        reservationRepository.deleteById(reservationId);
+    }
+
 
     public Optional<Reservation> findReservationById(Long id) {
         return reservationRepository.findById(id);

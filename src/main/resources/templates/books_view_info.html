@@ -82,6 +82,7 @@
         <table class="table table-light table-striped table-hover table-bordered">
             <thead class="table-secondary">
             <tr>
+                <th> Book Id</th>
                 <th> Author</th>
                 <th> Title</th>
                 <th> Year</th>
@@ -92,6 +93,7 @@
 
             <tbody>
             <tr th:each="book: ${books}">
+                <td th:text="${book.id}"></td>
                 <td th:text="${book.author}"></td>
                 <td th:text="${book.title}"></td>
                 <td th:text="${book.year}"></td>
@@ -133,8 +135,10 @@
         <table class="table table-sm table-bordered">
             <thead class="table-secondary">
             <tr>
+                <th> Reservation Id</th>
                 <th> Reservation date</th>
                 <th> Reserved by</th>
+                <th> User Id</th>
                 <th> Reservation end date</th>
 
 
@@ -150,9 +154,47 @@
             </tr>
             <tr th:if="${!reservations.isEmpty}"
                 th:each="reservation: ${reservations}">
+                <td th:text="${reservation.id}"></td>
                 <td th:text="${reservation.reservationStartDate}"></td>
                 <td th:text="${reservation.user.getFullName}"></td>
+                <td th:text="${reservation.user.id}"></td>
                 <td th:text="${reservation.reservationEndDate}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <h3>Active Issue</h3>
+
+        <table class="table table-sm table-bordered">
+            <thead class="table-secondary">
+            <tr>
+                <th> Issue Id</th>
+                <th> Issue date</th>
+                <th> Issued to</th>
+                <th> Issue end date</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr>
+                <div th:if="${issues.isEmpty}">
+                    <td><p>No Active issue</p></td>
+                </div>
+            </tr>
+            <tr th:if="${!issues.isEmpty}"
+                th:each="issue: ${issues}">
+                <td th:text="${issue.id}"></td>
+                <td th:text="${issue.issueStartDate}"></td>
+                <td th:text="${issue.user.getFullName}"></td>
+                <td th:text="${issue.issueEndDate}"></td>
 
             </tr>
             </tbody>
@@ -161,55 +203,51 @@
 
     </div>
 </div>
-    <div class="container">
-        <div class="row">
-            <h3>Active Issue</h3>
+<div class="container">
+    <div class="row">
+        <h3>Issue history</h3>
 
-            <table class="table table-sm table-bordered">
-                <thead class="table-secondary">
-                <tr>
-                    <th> Issue Id</th>
-                    <th> Issue date</th>
-                    <th> Issued to</th>
-                    <th> Issue end date</th>
-
-
-                </tr>
-                </thead>
-                <tbody>
+        <table class="table table-sm table-bordered">
+            <thead class="table-secondary">
+            <tr>
+                <th> Issue Id</th>
+                <th> Issue date</th>
+                <th> Issued to</th>
+                <th> Issue end date</th>
 
 
-                <tr>
-                    <div th:if="${reservations.isEmpty}">
-                        <td><p>No Active issue</p></td>
-                    </div>
-                </tr>
-                <tr th:if="${!reservations.isEmpty}"
-                    th:each="reservation: ${reservations}">
-                    <td th:text="${reservation.id}"></td>
-                    <td th:text="${reservation.reservationStartDate}"></td>
-                    <td th:text="${reservation.user.getFullName}"></td>
-                    <td th:text="${reservation.reservationEndDate}"></td>
-
-                </tr>
-                </tbody>
-            </table>
+            </tr>
+            </thead>
+            <tbody>
 
 
-        </div>
-        <p></p>
-        <!--===============================================================================================-->
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="vendor/bootstrap/js/popper.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="vendor/select2/select2.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="js/main.js"></script>
+
+            <tr
+                th:each="history: ${history}">
+                <td th:text="${history.id}"></td>
+                <td th:text="${history.issueStartDate}"></td>
+                <td th:text="${history.user.getFullName}"></td>
+                <td th:text="${history.issueEndDate}"></td>
+
+            </tr>
+            </tbody>
+        </table>
 
 
     </div>
+    <p></p>
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
+
+
+</div>
 </div>
 </div>
 </body>

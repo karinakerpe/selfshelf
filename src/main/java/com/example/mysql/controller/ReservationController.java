@@ -48,7 +48,7 @@ public class ReservationController {
         Book currentBook = bookRecordService.getBookById(id);
         model.addAttribute("book", currentBook);
         model.addAttribute("user", currentUser);
-        LocalDate startDate = LocalDate.now();
+        LocalDate startDate = LocalDate.now().minusDays(8);
         LocalDate endDate = startDate.plusDays(7);
 
         model.addAttribute("startDate", startDate);
@@ -65,7 +65,7 @@ public class ReservationController {
         User currentUser = userService.findUserByEmail(currentUserEmail);
         Book currentBook = bookRecordService.getBookById(id);
         currentBook.setBookStatus(RESERVED);
-        LocalDate startDate = LocalDate.now();
+        LocalDate startDate = LocalDate.now().minusDays(8);
         LocalDate endDate = startDate.plusDays(7);
         reservationService.reserveBook(currentBook, currentUser, startDate, endDate);
         return "redirect:/books";
@@ -80,7 +80,7 @@ public class ReservationController {
         Long currentUserId = currentUser.getId();
         List<Reservation> reservations = reservationService.findReservationByUserId(currentUserId);
         model.addAttribute("reservations", reservations);
-
+        model.addAttribute("id", currentUserId);
 
         return "user_reservations";
     }
@@ -92,7 +92,9 @@ public class ReservationController {
         List<Reservation> expiredReservations = reservationService.findAllExpiredReservation(LocalDate.now());
         model.addAttribute("expiredReservations", expiredReservations);
         model.addAttribute("date", LocalDate.now());
-
+        String currentUserEmail = principal.getName();
+        User currentUser = userService.findUserByEmail(currentUserEmail);
+        model.addAttribute("id", currentUser.getId());
 
         return "admin_reservations";
     }
@@ -102,6 +104,14 @@ public class ReservationController {
         reservationService.deleteReservationsExtendingEndDate(LocalDate.now());
 
         return "redirect:/reservation/active_reservation/all";
+
+    }
+
+    @GetMapping("/delete/{id}") //user
+    public String deleteById(@PathVariable("id") Long id) {
+        reservationService.deleteReservationById(id);
+
+        return "redirect:/reservation/active_reservation";
 
     }
 

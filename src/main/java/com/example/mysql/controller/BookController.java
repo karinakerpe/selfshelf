@@ -2,12 +2,10 @@ package com.example.mysql.controller;
 
 import com.example.mysql.model.Book;
 import com.example.mysql.model.BookSearch;
+import com.example.mysql.model.IssuedBooks;
 import com.example.mysql.model.Reservation;
 import com.example.mysql.model.user.User;
-import com.example.mysql.service.BookDBService;
-import com.example.mysql.service.BookRecordService;
-import com.example.mysql.service.ReservationService;
-import com.example.mysql.service.UserService;
+import com.example.mysql.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +26,8 @@ public class BookController {
 private BookDBService bookDBService;
 @Autowired
 private ReservationService reservationService;
+@Autowired
+private IssuedBookService issuedBookService;
 
 
 @Autowired
@@ -37,10 +37,9 @@ private ReservationService reservationService;
     public String listBooks(Model model, Principal principal) {
         String currentUserEmail = principal.getName();
         User currentUser = service.findUserByEmail(currentUserEmail);
-
+        model.addAttribute("id", currentUser.getId());
         model.addAttribute("books", bookDBService.getAllAvailableBooks());
         model.addAttribute("allBooks", bookDBService.getAllBooks());
-        model.addAttribute("id", currentUser.getId());
         return "books";
     }
     @GetMapping("/book-main")
@@ -101,6 +100,10 @@ private ReservationService reservationService;
         model.addAttribute("books",currentBook);
         List<Reservation> reservations = reservationService.findReservationByBookId(id);
         model.addAttribute("reservations",reservations);
+        List<IssuedBooks> issues = issuedBookService.findIssueBooksByBookIdWithIssueStatusActive(id);
+        model.addAttribute("issues", issues);
+        List<IssuedBooks> issueHistory = issuedBookService.findIssueBooksByBookIdWithIssueStatusHistory(id);
+        model.addAttribute("history", issueHistory);
 
         return "books_view_info";
     }
@@ -126,7 +129,10 @@ private ReservationService reservationService;
 
 
     @GetMapping(value = "/books/faq")
-    public String faq(BookSearch bookSearch, Model model) {
+    public String faq(BookSearch bookSearch, Model model, Principal principal) {
+        String currentUserEmail = principal.getName();
+        User currentUser = service.findUserByEmail(currentUserEmail);
+        model.addAttribute("id", currentUser.getId());
         model.addAttribute("pageName", "Book Search");
         return "faq";
     }

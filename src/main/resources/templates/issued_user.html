@@ -11,10 +11,17 @@
           crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav  class="navbar navbar-expand-lg bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
-
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+    </head>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -30,10 +37,19 @@
                 <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/reservation/active_reservation}">Reservations</a>
             </li>
             <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}">Users</a>
+            </li>
+            <li class="nav-item">
                 <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" th:href="@{/issued/user}">Issued Books</a>
             </li>
-            <li class="nav-item" >
-                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/issued/admin}">Issued Books</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/books}">Reserved Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}">Edit Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
@@ -43,7 +59,8 @@
             <div>
                 <li clas="nav-item">
                     <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout</button>
+                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout
+                        </button>
                     </form>
                 </li>
             </div>
@@ -66,8 +83,9 @@
     </div>
 
     <div class="container">
+        <h1>Your books</h1>
         <div class="row">
-            <h1>Your books</h1>
+            <h2>Active</h2>
             <table class="table table-sm table-bordered">
                 <thead class="table-dark">
                 <tr>
@@ -79,18 +97,50 @@
                 </thead>
 
                 <tbody>
-                <tr
-                        th:each="reservation: ${reservations}">
-                    <td th:text="${reservation.reservationStartDate}"></td>
-                    <td th:text="${reservation.book.author}"></td>
-                    <td th:text="${reservation.book.title}"></td>
-                    <td th:text="${reservation.reservationEndDate}"></td>
+                <tr>
+                    <div th:if="${issuedBooksHistory.isEmpty}">
+                        <td><p>No issue history</p></td>
+                    </div>
+                </tr>
+                <tr th:if="${!issuedBooksHistory.isEmpty}"
+                        th:each="issuedBooks: ${issuedBooksActive}">
+                    <td th:text="${issuedBooks.issueStartDate}"></td>
+                    <td th:text="${issuedBooks.book.author}"></td>
+                    <td th:text="${issuedBooks.book.title}"></td>
+                    <td th:text="${issuedBooks.issueEndDate}"></td>
                     <td>
 
                         <a method = "post"
-                           class="btn btn-warning">Delete Reservation</a>
+                           class="btn btn-warning">Return Book</a>
                     </td>
                 </tr>
+                </tbody>
+            </table>
+            <h2>History</h2>
+            <table class="table table-sm table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th> Issue Date</th>
+                    <th> Book Id</th>
+                    <th> Author</th>
+                    <th> Title</th>
+                    <th> Return Date</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <div th:if="${issuedBooksHistory.isEmpty}">
+                        <td><p>No issue history</p></td>
+                    </div>
+                </tr>
+                <tr th:if="${!issuedBooksHistory.isEmpty}"
+                        th:each="issuedBooks: ${issuedBooksHistory}">
+                    <td th:text="${issuedBooks.issueStartDate}"></td>
+                    <td th:text="${issuedBooks.book.id}"></td>
+                    <td th:text="${issuedBooks.book.author}"></td>
+                    <td th:text="${issuedBooks.book.title}"></td>
+                    <td th:text="${issuedBooks.issueEndDate}"></td>
                 </tbody>
             </table>
 

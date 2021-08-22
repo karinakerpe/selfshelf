@@ -50,6 +50,13 @@ public class Book {
     )
     private List<Reservation> reservations = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "book",
+
+            fetch = FetchType.LAZY
+    )
+    private List<IssuedBooks> issuedBooks = new ArrayList<>();
+
 
     public Book() {
 

@@ -1,5 +1,6 @@
 package com.example.mysql.model.user;
 
+import com.example.mysql.model.IssuedBooks;
 import com.example.mysql.model.Reservation;
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +41,14 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "user",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<IssuedBooks> issuedBooks = new ArrayList<>();
 
     public String getResetPasswordToken() {
         return resetPasswordToken;

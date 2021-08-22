@@ -1,6 +1,5 @@
 package com.example.mysql.service;
 
-import com.example.mysql.exception.NotFoundException;
 import com.example.mysql.model.*;
 import com.example.mysql.model.user.User;
 import com.example.mysql.repository.IssuedBooksRepository;
@@ -10,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import static com.example.mysql.model.IssueStatus.ACTIVE;
+import static com.example.mysql.model.IssueStatus.HISTORY;
 
 @RequiredArgsConstructor
 @Service
-public class    IssuedBookService {
+public class IssuedBookService {
     @Autowired
     private final IssuedBooksRepository issuedBooksRepository;
     @Autowired
@@ -34,32 +36,32 @@ public class    IssuedBookService {
         issuedBooksRepository.save(new IssuedBooks(issueStartDate, issueEndDate, user, book, issueStatus));
     }
 
-    public void issueBookWithActiveReservation(Reservation reservation) {
-        LocalDate issueStartDate = LocalDate.now();
-        LocalDate issueEndDate = issueStartDate.plusDays(21);
-        /*Optional<Reservation> currentReservation = reservationService.findReservationById(reservationId);
-        Reservation reservation = new Reservation();
-        if (currentReservation.isPresent()) {
-             reservation = currentReservation.get();
-        } else {
-            throw new NotFoundException("No such reservation id");
-        }*/
-        Book currentBook = reservation.getBook();
-        currentBook.setBookStatus(BookStatus.ISSUED);
-        bookDBService.updateBook(currentBook);
-        User currentUser = reservation.getUser();
-        issuedBooksRepository.save(new IssuedBooks(issueStartDate, issueEndDate, currentUser, currentBook, IssueStatus.ACTIVE));
-
-
-    }
-
     public List<IssuedBooks> showAllIssuedBooks() {
         return (List<IssuedBooks>) issuedBooksRepository.findAll();
     }
 
-    public List<IssuedBooks> findIssuedBooksByUserId(Long userId) {
-        return issuedBooksRepository.findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(userId);
+    public List<IssuedBooks> findIssuedBooksByUserIdActive(Long userId) {
+        List <IssuedBooks> issuesWithActive = new ArrayList<>();
+        List <IssuedBooks> allIssues = issuedBooksRepository.findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(userId);
+        for (IssuedBooks issueBook: allIssues) {
+            if(issueBook.getIssueStatus().equals(ACTIVE)){
+                issuesWithActive.add(issueBook);
+            }
+
+        }
+        return issuesWithActive;
     }
+
+    public List<IssuedBooks> findIssuedBooksByUserIdHistory(Long userId) {
+        List <IssuedBooks> issuesWithHistory = new ArrayList<>();
+        List <IssuedBooks> allIssues = issuedBooksRepository.findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(userId);
+        for (IssuedBooks issueBook: allIssues) {
+            if(issueBook.getIssueStatus().equals(HISTORY)){
+                issuesWithHistory.add(issueBook);
+            }
+
+        }
+        return issuesWithHistory;    }
 
     public void issueBookWithActiveReservation(Book book, User user) {
         LocalDate issueStartDate = LocalDate.now();
@@ -68,5 +70,55 @@ public class    IssuedBookService {
         book.setBookStatus(BookStatus.ISSUED);
         bookDBService.updateBook(book);
         issuedBooksRepository.save(new IssuedBooks(issueStartDate, issueEndDate, user, book, IssueStatus.ACTIVE));
+    }
+
+    public List<IssuedBooks> findIssuedBooksByBookId(Long bookId) {
+        return issuedBooksRepository.findIssuedBooksByBookIdEquals(bookId);
+    }
+
+
+    public List<IssuedBooks> findIssueBooksByBookIdWithIssueStatusHistory(Long bookId) {
+        List <IssuedBooks> issuesWithHistory = new ArrayList<>();
+        List <IssuedBooks> allIssues = findIssuedBooksByBookId(bookId);
+        for (IssuedBooks issueBook: allIssues) {
+            if(issueBook.getIssueStatus().equals(HISTORY)){
+                issuesWithHistory.add(issueBook);
+            }
+
+        }
+        return issuesWithHistory;
+    }
+
+    public List<IssuedBooks> findIssueBooksByBookIdWithIssueStatusActive(Long bookId) {
+        List <IssuedBooks> issuesWithActive = new ArrayList<>();
+        List <IssuedBooks> allIssues = findIssuedBooksByBookId(bookId);
+        for (IssuedBooks issueBook: allIssues) {
+            if(issueBook.getIssueStatus().equals(ACTIVE)){
+                issuesWithActive.add(issueBook);
+            }
+
+        }
+
+        return issuesWithActive;
+    }
+
+public IssuedBooks getIssuedBookById (Long issueId){
+        return issuedBooksRepository.getById(issueId);
+}
+
+    public void returnBook(Long issueId, LocalDate realReturnDate) {
+    IssuedBooks issue = issuedBooksRepository.getById(issueId);
+    Book book = issue.getBook();
+    book.setBookStatus(BookStatus.AVAILABLE);
+    bookDBService.updateBook(book);
+    issue.setIssueEndDate(realReturnDate);
+    issue.setIssueStatus(HISTORY);
+    issuedBooksRepository.save(issue);
+    }
+
+
+
+    public List<IssuedBooks> getIssuedBooksWithStatusActive (){
+        return issuedBooksRepository.findIssuedBooksByIssueStatusEquals(ACTIVE);
     }
 }
