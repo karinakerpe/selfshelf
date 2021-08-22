@@ -129,7 +129,7 @@
                     <tr th:each="currentIssueBook: ${currentIssueBook}">
                         <td th:text="${currentIssueBook.id}"></td>
                         <td th:text="${currentIssueBook.issueStartDate}"></td>
-                        <td th:text="${currentIssueBook.issueEndDate}"></td>
+                        <td th:text="${planedReturnDate}"></td>
                         <td th:text="${currentIssueBook.user.getFullName}"></td>
 
                     </tr>

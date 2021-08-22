@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -86,12 +85,12 @@ public class IssuedBookController {
     public String viewReturnDetails(@PathVariable("id") Long id, Model model, Principal principal) {
         IssuedBooks currentIssuedBook = issuedBookService.getIssuedBookById(id);
         model.addAttribute("currentIssueBook", currentIssuedBook);
+        model.addAttribute("planedReturnDate", currentIssuedBook.getIssueEndDate());
         LocalDate realReturnDate = LocalDate.now();
         model.addAttribute("realReturnDate", realReturnDate);
         LocalDate planedReturnDate = currentIssuedBook.getIssueEndDate();
-        Period daysUntil = planedReturnDate.until(realReturnDate);
-        int overdue = daysUntil.getDays();
-        model.addAttribute("daysOverdue", overdue);
+        int daysUntil = planedReturnDate.until(realReturnDate).getDays();
+        model.addAttribute("daysOverdue", daysUntil);
         issuedBookService.returnBook(id, realReturnDate);
         return "return_book";
 
