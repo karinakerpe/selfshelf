@@ -57,7 +57,7 @@
             <div>
                 <li clas="nav-item">
                     <form class="form-signin"  method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()"  class = "btn btn-secondary" type="submit">Logout</button>
+                        <button sec:authorize="isAuthenticated()"  class = "btn btn-outline-secondary" type="submit">Logout</button>
                     </form>
                 </li>
             </div>
@@ -93,7 +93,7 @@
         <div class="col-lg-3">
             <p></p>
             <div>
-                <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+                <a class="btn btn-outline-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
             </div>
         </div>
         <div class="col-lg-10">
@@ -105,8 +105,8 @@
     <div class="container">
         <div class="row">
             <h1>Issued books</h1>
-            <table class="table table-sm table-bordered">
-                <thead class="table-dark">
+            <table class="table table-light table-hover table-sm table-bordered ">
+                <thead class="table-info">
                 <tr>
                     <th> Date</th>
                     <th> User</th>
@@ -133,7 +133,7 @@
                     <td th:text="${issuedBook.book.author}"></td>
                     <td th:text="${issuedBook.book.title}"></td>
                     <td th:text="${issuedBook.issueEndDate}"></td>
-                    <td><a th:href="@{/issued/return/{id}(id=${issuedBook.id})}" class="btn btn-warning">Return Book</a></td>
+                    <td><a th:href="@{/issued/return/{id}(id=${issuedBook.id})}" class="btn btn-warning btn-sm">Return Book</a></td>
 
                     <!--                        <a method = "post"-->
                     <!--                           class="btn btn-warning">Return Book</a>-->

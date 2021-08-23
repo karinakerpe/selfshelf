@@ -48,13 +48,14 @@
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link">Edit Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
+                <a class="nav-link" th:href="@{/books/faq}">FAQ</a>
             </li>
 
             <div>
                 <li clas="nav-item">
                     <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout</button>
+                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout
+                        </button>
                     </form>
                 </li>
             </div>
@@ -62,11 +63,27 @@
     </div>
 </nav>
 <body>
+
 <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-<h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
-<p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
-<a sec:authorize="isAuthenticated()" class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
-<a sec:authorize="!isAuthenticated()"class="btn btn-secondary" href="index.html" th:href="@{/}">Back to Home Page</a>
+<div class="container">
+    <div class="row">
+        <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+        <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+
+        <a sec:authorize="isAuthenticated()" class="btn btn-outline-info" href="user_account.html" th:href="@{/account}">Back
+            to
+            Home Page</a>
+    </div>
+    <p></p>
+    <div class="row">
+        <a sec:authorize="!isAuthenticated()" class="btn btn-outline-info" href="index.html" th:href="@{/}">Back to Home
+            Page</a>
+    </div>
+</div>
 </body>
 </body>
 </body>

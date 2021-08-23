@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="ISO-8859-1">
-    <title>Catalog</title>
+    <title>BOB</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -14,13 +14,14 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+          rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet"/>
     </head>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -46,19 +47,22 @@
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/issued/admin}">Issued Books</a>
             </li>
             <li class="nav-item">
-                <a  sec:authorize="hasRole('ROLE_ADMIN')"class="nav-link" th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link"
+                   th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
+                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}">Edit Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
+                <a class="nav-link" th:href="@{/books/faq}">FAQ</a>
             </li>
 
             <div>
                 <li clas="nav-item">
-                    <form class="form-signin"  method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()"  class = "btn btn-secondary" type="submit">Logout</button>
+                    <form class="form-signin" method="get" th:action="@{/logout}">
+                        <button sec:authorize="isAuthenticated()" class="btn btn-outline-secondary" type="submit">
+                            Logout
+                        </button>
                     </form>
                 </li>
             </div>
@@ -94,7 +98,7 @@
         <div class="col-lg-3">
             <p></p>
             <div>
-                <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+                <a class="btn btn-outline-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
             </div>
         </div>
         <div class="col-lg-10">
@@ -106,13 +110,14 @@
     <div class="container">
         <div class="row">
             <h1>Your reserved books</h1>
-            <table class="table table-sm table-bordered">
-                <thead class="table-dark">
+            <table class="table table-light table-hover table-sm table-bordered ">
+                <thead class="table-info">
                 <tr>
                     <th> Date</th>
                     <th> Author</th>
                     <th> Title</th>
                     <th> Reservation End Date</th>
+                    <th> Actions</th>
                 </tr>
                 </thead>
 
@@ -137,15 +142,7 @@
 
 
 
-        <!--===============================================================================================-->
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="vendor/bootstrap/js/popper.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="vendor/select2/select2.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="js/main.js"></script>
+
 
 
 

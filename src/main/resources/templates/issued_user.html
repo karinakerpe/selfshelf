@@ -59,7 +59,7 @@
             <div>
                 <li clas="nav-item">
                     <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout
+                        <button sec:authorize="isAuthenticated()" class="btn btn-outline-secondary" type="submit">Logout
                         </button>
                     </form>
                 </li>
@@ -73,7 +73,7 @@
         <div class="col-lg-3">
             <p></p>
             <div>
-                <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+                <a class="btn btn-outline-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
             </div>
         </div>
         <div class="col-lg-10">
@@ -86,8 +86,8 @@
         <h1>Your books</h1>
         <div class="row">
             <h2>Active</h2>
-            <table class="table table-sm table-bordered">
-                <thead class="table-dark">
+            <table class="table table-light table-hover table-sm table-bordered ">
+                <thead class="table-info">
                 <tr>
                     <th> Issue Date</th>
                     <th> Author</th>
@@ -117,8 +117,8 @@
                 </tbody>
             </table>
             <h2>History</h2>
-            <table class="table table-sm table-bordered">
-                <thead class="table-dark">
+            <table class="table table-light table-hover table-sm table-bordered ">
+                <thead class="table-info">
                 <tr>
                     <th> Issue Date</th>
                     <th> Book Id</th>

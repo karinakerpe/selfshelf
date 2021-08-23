@@ -5,6 +5,7 @@ import com.example.mysql.model.Reservation;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 45)
+    @Email(message = "Wrong e-mail")
     private String email;
 
     @Column(nullable = false, length = 64)

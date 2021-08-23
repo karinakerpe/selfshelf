@@ -4,23 +4,24 @@
 >
 <head>
     <meta charset="ISO-8859-1">
-    <title>Catalog</title>
+    <title>Bok</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
 </head>
 <body>
-<nav  class="navbar navbar-expand-lg bg-dark navbar-dark">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+          rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet"/>
     </head>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -59,7 +60,7 @@
             <div>
                 <li clas="nav-item">
                     <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout
+                        <button sec:authorize="isAuthenticated()" class="btn btn-outline-secondary" type="submit">Logout
                         </button>
                     </form>
                 </li>
@@ -67,108 +68,104 @@
         </ul>
     </div>
 </nav>
+<p></p>
+<div class="container">
+
+    <div class="row">
+        <div>
+            <a class="btn btn-outline-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <h3>Reserve Book:</h3>
+
+        <table class="table table-light table-hover table-sm table-bordered ">
+            <thead class="table-info">
+            <tr>
+                <th> Id</th>
+                <th> Author</th>
+                <th> Title</th>
+                <th> Year</th>
+                <th> Page Count</th>
+                <th> ISBN</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="book: ${book}">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.year}"></td>
+                <td th:text="${book.pages}"></td>
+                <td th:text="${book.isbn}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-3">
-            <p></p>
-            <div>
-                <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
-            </div>
-        </div>
-        <div class="col-lg-10">
+        <h3>Reserved by:</h3>
 
-        </div>
+        <table class="table table-light table-hover table-sm table-bordered ">
+            <thead class="table-info">
+            <tr>
+                <th> First Name</th>
+                <th> Last Name</th>
+            </tr>
+            </thead>
 
-        <div class="container">
-            <div class="row">
-                <h3>Book:</h3>
+            <tbody>
+            <tr th:each="user: ${user}">
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
 
-                <table class="table table-light table-striped table-hover table-bordered">
-                    <thead class="table-secondary">
-                    <tr>
-                        <th> Id</th>
-                        <th> Author</th>
-                        <th> Title</th>
-                        <th> Year</th>
-                        <th> Page Count</th>
-                        <th> ISBN</th>
-                    </tr>
-                    </thead>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <h3>Reservation info:</h3>
 
-                    <tbody>
-                    <tr th:each="book: ${book}">
-                        <td th:text="${book.id}"></td>
-                        <td th:text="${book.author}"></td>
-                        <td th:text="${book.title}"></td>
-                        <td th:text="${book.year}"></td>
-                        <td th:text="${book.pages}"></td>
-                        <td th:text="${book.isbn}"></td>
+        <table class="table table-light table-hover table-sm table-bordered ">
+            <thead class="table-info">
+            <tr>
+                <th> Start Date</th>
+                <th> End Date</th>
+            </tr>
+            </thead>
 
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <tbody>
+            <td th:text="${startDate}"></td>
+            <td th:text="${endDate}"></td>
 
-        <div class="container">
-            <div class="row">
-                <h3>Reserved by:</h3>
-
-                <table class="table table-light table-striped table-hover table-bordered">
-                    <thead class="table-secondary">
-                    <tr>
-                        <th> First Name</th>
-                        <th> Last Name</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr th:each="user: ${user}">
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <h3>Reservation info:</h3>
-
-                <table class="table table-light table-striped table-hover table-bordered">
-                    <thead class="table-secondary">
-                    <tr>
-                        <th> Start Date</th>
-                        <th> End Date</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <td th:text="${startDate}"></td>
-                    <td th:text="${endDate}"></td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card-body">
-
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
             <form th:action="@{/reservation/{id}(id = ${book.id})}" th:object="${reservation}" th:method="POST">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-outline-info">
                         Submit
                     </button>
                 </div>
             </form>
-                    <a class="btn btn-primary" th:href="@{/books}">Cancel</a>
-                </div>
-
         </div>
+    <div class="row">
+        <a class="btn btn-outline-secondary" th:href="@{/books}">Cancel</a>
     </div>
+    </div>
+</div>
+</div>
 </div>
 </body>
 </html>

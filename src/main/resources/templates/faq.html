@@ -59,7 +59,7 @@
             <div>
                 <li clas="nav-item">
                     <form class="form-signin" method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit">Logout
+                        <button sec:authorize="isAuthenticated()" class="btn btn-outline-secondary" type="submit">Logout
                         </button>
                     </form>
                 </li>
@@ -89,18 +89,21 @@
 
     <p></p>
     <b style="color:red">Can't  find your answer here? Please reach out to us by
-        sending an email to <a href="url">customerservice@group1.com</a></b>
+        sending an email to <a class="btn btn-outline-danger" href="#">customerservice@group1.com</a></b>
 
     <p>
 
     </p>
-    <div>
-        <a sec:authorize="isAuthenticated()"class="btn btn-secondary" th:href="@{/books}" role="button">Back</a>
-        <a sec:authorize="!isAuthenticated()"class="btn btn-secondary" href="index.html" th:href="@{/}">Back to Home Page</a>
+    <div class = "row">
+        <a sec:authorize="isAuthenticated()"class="btn btn-outline-secondary" th:href="@{/books}" role="button">Back</a>
     </div>
     <p></p>
-    <div>
-        <a sec:authorize="isAuthenticated()"class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+    <div class="row">
+        <a sec:authorize="!isAuthenticated()"class="btn btn-outline-secondary" href="index.html" th:href="@{/}">Back to Home Page</a>
+    </div>
+    <p></p>
+    <div class="row">
+        <a sec:authorize="isAuthenticated()"class="btn btn-outline-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
     </div>
 </div>
 

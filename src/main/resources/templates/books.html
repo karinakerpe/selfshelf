@@ -14,13 +14,14 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+          rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet"/>
     </head>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -46,19 +47,22 @@
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/issued/admin}">Issued Books</a>
             </li>
             <li class="nav-item">
-                <a  sec:authorize="hasRole('ROLE_ADMIN')"class="nav-link" th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link"
+                   th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
+                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}">Edit Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
+                <a class="nav-link" th:href="@{/books/faq}">FAQ</a>
             </li>
 
             <div>
                 <li clas="nav-item">
-                    <form class="form-signin"  method="get" th:action="@{/logout}">
-                        <button sec:authorize="isAuthenticated()"  class = "btn btn-secondary" type="submit">Logout</button>
+                    <form class="form-signin" method="get" th:action="@{/logout}">
+                        <button sec:authorize="isAuthenticated()" class="btn btn-outline-secondary" type="submit">
+                            Logout
+                        </button>
                     </form>
                 </li>
             </div>
@@ -69,117 +73,127 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-15">
-            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/book/new}" class="btn btn-info">Add
-                New Book</a>
+            <div class="row">
+                <div class="col-6 col-md-4">
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/book/new}" class="btn btn-outline-info">Add
+                        New Book</a>
+                </div>
+            </div>
+            <p></p>
+            <div class = "row">
+                <div class="col-6 col-md-4">
+                    <a href="/books/search" class="btn btn-outline-info"> Search
+                        Book </a>
+                </div>
+            </div>
+            <p></p>
+            <div class="row">
+                <div class="col-6 col-md-4">
+                    <a class="btn btn-outline-secondary" href="user_account.html" th:href="@{/account}">Back to Home
+                        Page</a>
+                </div>
 
+            </div>
 <p></p>
-        <div class="col-lg-15">
-           <a href="/books/search" class="btn btn-info">     Search
-                Book  </a>
-<p></p>
-            <div>
-                <a class="btn btn-secondary" href="user_account.html" th:href="@{/account}">Back to Home Page</a>
+
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_USER')" class="container">
+            <div class="row">
+                <h1>Available Books</h1>
+                <table class="table table-light table-hover table-sm table-bordered ">
+                    <thead class="table-info">
+                    <tr>
+                        <th> Author</th>
+                        <th> Title</th>
+                        <th> Year</th>
+                        <th> Page Count</th>
+                        <th> Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="book: ${books}">
+                        <td th:text="${book.author}"></td>
+                        <td th:text="${book.title}"></td>
+                        <td th:text="${book.year}"></td>
+                        <td th:text="${book.pages}"></td>
+                        <!--                    <td>-->
+                        <!--                        <form sec:authorize="hasRole('ROLE_USER')" th:action="@{/reservation/{id}(id=${book.id})}" method= "post"-->
+                        <!--                              class="btn btn-warning" type = "submit">Reserve</form>-->
+                        <td><a th:href="@{/reservation/{id}(id=${book.id})}" class="btn btn-warning btn-sm">Reserve</a>
+                        </td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="container">
+            <div class="row">
+                <h1>All Books</h1>
+                <table class="table table-light table-hover table-sm table-bordered ">
+                    <thead class="table-info">
+                    <tr>
+                        <th> Author</th>
+                        <th> Title</th>
+                        <th> Year</th>
+                        <th> Page Count</th>
+                        <th> Status</th>
+                        <th> Actions</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    <tr th:each="book: ${allBooks}">
+                        <td th:text="${book.author}"></td>
+                        <td th:text="${book.title}"></td>
+                        <td th:text="${book.year}"></td>
+                        <td th:text="${book.pages}"></td>
+                        <td th:text="${book.bookStatus}"></td>
+                        <td>
+                            <a th:href="@{/books/info/{id}(id=${book.id})}"
+                               class="btn btn-outline-secondary btn-sm">Get Info</a>
+                            <a th:if="${book.bookStatus.name().equals('AVAILABLE')}" href="#"
+                               class="btn btn-dark btn-sm disabled" role="button" aria-disabled="true">Issue</a>
+                            <a th:if="${book.bookStatus.name().equals('RESERVED')}"
+                               th:href="@{/issued/{id}(id=${book.id})}"
+                               class="btn btn-success btn-sm">Issue</a>
+                            <a th:if="${book.bookStatus.name().equals('ISSUED')}" href="#"
+                               class="btn btn-dark btn-sm disabled" role="button" aria-disabled="true">Issue</a>
+
+                            <a th:href="@{/books/edit/{id}(id = ${book.id})}"
+                               class="btn btn-warning btn-sm">Update</a>
+
+                            <a th:href="@{/books/{id}(id = ${book.id})}"
+                               class="btn btn-outline-danger btn-sm">Delete</a>
+
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
             </div>
 
 
-
-    </div>
-
-    <div sec:authorize="hasRole('ROLE_USER')" class="container">
-        <div class="row">
-            <h1>Available Books</h1>
-            <table class="table table-sm table-bordered">
-                <thead class="table-dark">
-                <tr>
-                    <th> Author</th>
-                    <th> Title</th>
-                    <th> Year</th>
-                    <th> Page Count</th>
-                    <th> Actions</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr th:each="book: ${books}">
-                    <td th:text="${book.author}"></td>
-                    <td th:text="${book.title}"></td>
-                    <td th:text="${book.year}"></td>
-                    <td th:text="${book.pages}"></td>
-<!--                    <td>-->
-<!--                        <form sec:authorize="hasRole('ROLE_USER')" th:action="@{/reservation/{id}(id=${book.id})}" method= "post"-->
-<!--                              class="btn btn-warning" type = "submit">Reserve</form>-->
-                    <td><a th:href="@{/reservation/{id}(id=${book.id})}" class="btn btn-warning">Reserve</a></td>
-
-
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div sec:authorize="hasRole('ROLE_ADMIN')" class="container">
-        <div class="row">
-            <h1>All Books</h1>
-            <table class="table table-sm table-bordered">
-                <thead class="table-dark">
-                <tr>
-                    <th> Author</th>
-                    <th> Title</th>
-                    <th> Year</th>
-                    <th> Page Count</th>
-                    <th> Status</th>
-                    <th> Actions</th>
-                </tr>
-                </thead>
-
-
-                <tbody>
-                <tr th:each="book: ${allBooks}">
-                    <td th:text="${book.author}"></td>
-                    <td th:text="${book.title}"></td>
-                    <td th:text="${book.year}"></td>
-                    <td th:text="${book.pages}"></td>
-                    <td th:text="${book.bookStatus}"></td>
-                    <td>
-                        <a th:href = "@{/books/info/{id}(id=${book.id})}"
-                                class="btn btn-secondary">Get Info</a>
-                        <a th:if="${book.bookStatus.name().equals('AVAILABLE')}" href="#"
-                           class="btn btn-success disabled" role="button" aria-disabled="true">Issue</a>
-                        <a th:if="${book.bookStatus.name().equals('RESERVED')}" th:href = "@{/issued/{id}(id=${book.id})}"
-                           class="btn btn-success" >Issue</a>
-                        <a th:if="${book.bookStatus.name().equals('ISSUED')}" href="#"
-                           class="btn btn-success disabled" role="button" aria-disabled="true">Issue</a>
-
-                        <a th:href="@{/books/edit/{id}(id = ${book.id})}"
-                           class="btn btn-warning">Update</a>
-
-                        <a th:href="@{/books/{id}(id = ${book.id})}"
-                           class="btn btn-danger">Delete</a>
-
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <p></p>
+            <!--===============================================================================================-->
+            <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="vendor/bootstrap/js/popper.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="vendor/select2/select2.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="js/main.js"></script>
 
 
         </div>
-
-
-
-        <p></p>
-        <!--===============================================================================================-->
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="vendor/bootstrap/js/popper.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="vendor/select2/select2.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="js/main.js"></script>
-
-
     </div>
-</div>
 </div>
 </body>
 </html>
