@@ -14,11 +14,11 @@ public interface IssuedBooksRepository extends JpaRepository <IssuedBooks, Long>
 
     List<IssuedBooks> findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(Long userId);
 
-    List<IssuedBooks> findIssuedBooksByBookIdEquals (Long bookId);
+    List<IssuedBooks> findIssuedBooksByBookIdEqualsOrderByIssueEndDateAsc(Long bookId);
 
     List<IssuedBooks> findIssuedBooksByBookIdEqualsAndIssueStatusEquals (Long bookId, IssueStatus issueStatus);
 
-    List<IssuedBooks> findIssuedBooksByIssueStatusEquals (IssueStatus issueStatus);
+    List<IssuedBooks> findIssuedBooksByIssueStatusEqualsOrderByIssueEndDateDesc (IssueStatus issueStatus);
 
 }
     

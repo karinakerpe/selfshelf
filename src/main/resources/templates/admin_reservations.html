@@ -110,10 +110,11 @@
                     <td th:text="${reservation.reservationStartDate}"></td>
                     <td th:text="${reservation.reservationEndDate}"></td>
                     <td>
-                        <a method="post"
-                           class="btn btn-info">Issue Book</a>
-                        <a method="post"
-                           class="btn btn-warning">Delete Reservation</a>
+                        <a  th:href = "@{/issued/{id}(id=${reservation.book.id})}"
+                           class="btn btn-success" >Issue</a>
+                        <a  th:href="@{/reservation/delete/{id}(id=${reservation.id})}"  class="btn btn-warning">
+                            Delete Reservation</button>
+                        </a>
 
                     </td>
                 </tr>

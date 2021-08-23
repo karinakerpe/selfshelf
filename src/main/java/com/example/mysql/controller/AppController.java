@@ -95,8 +95,6 @@ public class AppController {
     public String editById(@PathVariable("id") Long id, Model model, Principal principal) {
         String currentUserEmail = principal.getName();
         User currentUser = service.findUserByEmail(currentUserEmail);
-
-
         model.addAttribute("pageName", "Edit " + currentUser.getFullName() + " info:");
         User user = service.getById(id);
         model.addAttribute("user", user);

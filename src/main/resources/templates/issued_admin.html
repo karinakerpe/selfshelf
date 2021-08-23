@@ -48,7 +48,7 @@
                 <a  sec:authorize="hasRole('ROLE_ADMIN')"class="nav-link" th:href="@{/reservation/active_reservation/all}">Reserved Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}" >Edit Account</a>
+                <a class="nav-link" th:href="@{/users/update/{id}(id=${currentUserId})}" >Edit Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
@@ -119,8 +119,14 @@
                 </thead>
 
                 <tbody>
-                <tr
-                        th:each="issuedBook: ${issuedBooks}">
+
+                <tr>
+                    <div th:if="${issuedBooks.isEmpty}">
+                        <td><p>No Active issue</p></td>
+                    </div>
+                </tr>
+                <tr th:if="${!issuedBooks.isEmpty}"
+                    th:each="issuedBook: ${issuedBooks}">
                     <td th:text="${issuedBook.issueStartDate}"></td>
                     <td th:text="${issuedBook.user.getFullName}"></td>
                     <td th:text="${issuedBook.book.id}"></td>

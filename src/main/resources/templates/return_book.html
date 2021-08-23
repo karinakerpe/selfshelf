@@ -11,16 +11,17 @@
           crossorigin="anonymous">
 </head>
 <body>
-<nav  class="navbar navbar-expand-lg bg-dark navbar-dark">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+          rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet"/>
     </head>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -140,7 +141,6 @@
         <div class="container">
             <div class="row">
                 <h3>Returning Date:</h3>
-
                 <table class="table table-light table-striped table-hover table-bordered">
                     <thead class="table-secondary">
                     <tr>
@@ -158,22 +158,22 @@
                 </table>
             </div>
         </div>
-
-        <div class="card-body">
-
-            <form th:action="@{/issued/return/{id}(id = ${currentIssueBook.id})}" th:object="${currentIssueBook}" th:method="POST">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        Submit
-                    </button>
-                </div>
-            </form>
-                    <a class="btn btn-primary" th:href="@{/issued/admin}">Cancel</a>
-                </div>
-
-        </div>
+<table>
+        <form th:action="@{/issued/return/{id}(id = ${currentIssueBook.id})}" th:object="${currentIssueBook}"
+              th:method="POST">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                    Return
+                </button>
+            </div>
+        </form>
+</table>
+    <p></p>
+    <div class="container">
+        <a class="btn btn-primary" th:href="@{/issued/admin}">Cancel</a>
     </div>
-</div>
+
+
 </body>
 </html>
 <!--===============================================================================================-->

@@ -64,16 +64,15 @@ public class IssuedBookService {
         return issuesWithHistory;    }
 
     public void issueBookWithActiveReservation(Book book, User user) {
-        LocalDate issueStartDate = LocalDate.now().minusDays(30);
+        LocalDate issueStartDate = LocalDate.now();
         LocalDate issueEndDate = issueStartDate.plusDays(21);
-
         book.setBookStatus(BookStatus.ISSUED);
         bookDBService.updateBook(book);
         issuedBooksRepository.save(new IssuedBooks(issueStartDate, issueEndDate, user, book, IssueStatus.ACTIVE));
     }
 
     public List<IssuedBooks> findIssuedBooksByBookId(Long bookId) {
-        return issuedBooksRepository.findIssuedBooksByBookIdEquals(bookId);
+        return issuedBooksRepository.findIssuedBooksByBookIdEqualsOrderByIssueEndDateAsc(bookId);
     }
 
 
@@ -119,6 +118,6 @@ public IssuedBooks getIssuedBookById (Long issueId){
 
 
     public List<IssuedBooks> getIssuedBooksWithStatusActive (){
-        return issuedBooksRepository.findIssuedBooksByIssueStatusEquals(ACTIVE);
+        return issuedBooksRepository.findIssuedBooksByIssueStatusEqualsOrderByIssueEndDateDesc(ACTIVE);
     }
 }

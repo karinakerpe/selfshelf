@@ -14,10 +14,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findAll();
 
 
-    List<Reservation> findReservationsByUserIdEqualsOrderByReservationStartDateAsc(Long userId);
+    List<Reservation> findReservationsByUserIdEqualsOrderByReservationStartDateDesc(Long userId);
 
 
-    List<Reservation> findReservationsByBookIdEquals (Long bookId);
+    List<Reservation> findReservationsByBookIdEqualsOrderByReservationStartDateDesc(Long bookId);
 
     List<Reservation> findReservationsByBookIdEqualsAndUserIdEquals (Long bookId, Long userId);
 

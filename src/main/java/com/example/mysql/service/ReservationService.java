@@ -34,11 +34,11 @@ public class ReservationService {
     }
 
     public List<Reservation> findReservationByUserId(Long userId) {
-        return reservationRepository.findReservationsByUserIdEqualsOrderByReservationStartDateAsc(userId);
+        return reservationRepository.findReservationsByUserIdEqualsOrderByReservationStartDateDesc(userId);
     }
 
     public List<Reservation> findReservationByBookId(Long bookId) {
-        return reservationRepository.findReservationsByBookIdEquals(bookId);
+        return reservationRepository.findReservationsByBookIdEqualsOrderByReservationStartDateDesc(bookId);
     }
 
     public List<Reservation> findAllActiveReservation(LocalDate date) {

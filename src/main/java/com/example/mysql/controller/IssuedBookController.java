@@ -49,19 +49,23 @@ public class IssuedBookController {
 
         issuedBookService.issueBookWithActiveReservation(currentBook, currentReservation.getUser());
         reservationService.deleteByIdUpdatingBookStatus(currentReservation.getId());
+        String currentUserEmail = principal.getName();
+        User currentUser = userService.findUserByEmail(currentUserEmail);
+        if (currentUser.getUserRole().name().equals("USER")){
         return "redirect:/books";
-
+        }else{
+            return "redirect:/reservation/active_reservation/all";
+        }
     }
 
     @GetMapping("/admin")
     public String viewIssuedBooksForAdminId(Principal principal, Model model) {
         String currentUserEmail = principal.getName();
         User currentUser = userService.findUserByEmail(currentUserEmail);
-        model.addAttribute("id", currentUser.getId());
+        model.addAttribute("currentUserId", currentUser.getId());
 
         List<IssuedBooks> issuedBooks = issuedBookService.getIssuedBooksWithStatusActive();
         model.addAttribute("issuedBooks", issuedBooks);
-
         issuedBookService.showAllIssuedBooks();
 
         return "issued_admin";
@@ -76,8 +80,9 @@ public class IssuedBookController {
         model.addAttribute("issuedBooksActive", issuedBooksActive);
         List<IssuedBooks> issuedBooksHistory = issuedBookService.findIssuedBooksByUserIdHistory(currentUserId);
         model.addAttribute("issuedBooksHistory", issuedBooksHistory);
-        model.addAttribute("id", currentUserId);
-
+        model.addAttribute("currentUserId", currentUserId);
+        LocalDate localDate = LocalDate.now();
+        model.addAttribute("date", localDate);
         return "issued_user";
     }
 
@@ -85,21 +90,20 @@ public class IssuedBookController {
     public String viewReturnDetails(@PathVariable("id") Long id, Model model, Principal principal) {
         IssuedBooks currentIssuedBook = issuedBookService.getIssuedBookById(id);
         model.addAttribute("currentIssueBook", currentIssuedBook);
-        model.addAttribute("planedReturnDate", currentIssuedBook.getIssueEndDate());
+        LocalDate planedReturnDate = currentIssuedBook.getIssueEndDate();
+        model.addAttribute("planedReturnDate", planedReturnDate);
         LocalDate realReturnDate = LocalDate.now();
         model.addAttribute("realReturnDate", realReturnDate);
-        LocalDate planedReturnDate = currentIssuedBook.getIssueEndDate();
         int daysUntil = planedReturnDate.until(realReturnDate).getDays();
         model.addAttribute("daysOverdue", daysUntil);
-        issuedBookService.returnBook(id, realReturnDate);
         return "return_book";
 
     }
 
     @PostMapping("return/{id}") // Admin
     public String returnIssuedBookByIssueId(@PathVariable("id") Long id, Model model, Principal principal) {
-        IssuedBooks currentIssuedBook = issuedBookService.getIssuedBookById(id);
-        model.addAttribute("currentIssueBook", currentIssuedBook);
+//        IssuedBooks currentIssuedBook = issuedBookService.getIssuedBookById(id);
+//        model.addAttribute("currentIssueBook", currentIssuedBook);
         LocalDate realReturnDate = LocalDate.now();
         issuedBookService.returnBook(id, realReturnDate);
         return "redirect:/issued/admin";

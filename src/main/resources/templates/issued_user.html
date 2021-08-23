@@ -49,7 +49,7 @@
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/books}">Reserved Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/users/update/{id}(id=${id})}">Edit Account</a>
+                <a class="nav-link" th:href="@{/users/update/{id}(id=${currentUserId})}">Edit Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/books/faq}" >FAQ</a>
@@ -98,20 +98,20 @@
 
                 <tbody>
                 <tr>
-                    <div th:if="${issuedBooksHistory.isEmpty}">
-                        <td><p>No issue history</p></td>
+                    <div th:if="${issuedBooksActive.isEmpty}">
+                        <td><p>No active issue</p></td>
                     </div>
                 </tr>
-                <tr th:if="${!issuedBooksHistory.isEmpty}"
+                <tr th:if="${!issuedBooksActive.isEmpty}"
                         th:each="issuedBooks: ${issuedBooksActive}">
                     <td th:text="${issuedBooks.issueStartDate}"></td>
                     <td th:text="${issuedBooks.book.author}"></td>
                     <td th:text="${issuedBooks.book.title}"></td>
-                    <td th:text="${issuedBooks.issueEndDate}"></td>
+                    <td th:if = "${!issuedBooks.issueEndDate.isAfter(date)}" class="table-danger" th:text="${issuedBooks.issueEndDate}"></td>
+                    <td th:if = "${issuedBooks.issueEndDate.isAfter(date)}" th:text="${issuedBooks.issueEndDate}"></td>
                     <td>
 
-                        <a method = "post"
-                           class="btn btn-warning">Return Book</a>
+
                     </td>
                 </tr>
                 </tbody>

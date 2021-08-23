@@ -48,7 +48,7 @@ public class ReservationController {
         Book currentBook = bookRecordService.getBookById(id);
         model.addAttribute("book", currentBook);
         model.addAttribute("user", currentUser);
-        LocalDate startDate = LocalDate.now().minusDays(30);
+        LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusDays(7);
 
         model.addAttribute("startDate", startDate);
@@ -65,7 +65,7 @@ public class ReservationController {
         User currentUser = userService.findUserByEmail(currentUserEmail);
         Book currentBook = bookRecordService.getBookById(id);
         currentBook.setBookStatus(RESERVED);
-        LocalDate startDate = LocalDate.now().minusDays(8);
+        LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusDays(7);
         reservationService.reserveBook(currentBook, currentUser, startDate, endDate);
         return "redirect:/books";
@@ -108,10 +108,16 @@ public class ReservationController {
     }
 
     @GetMapping("/delete/{id}") //user
-    public String deleteById(@PathVariable("id") Long id) {
+    public String deleteById(@PathVariable("id") Long id, Principal principal) {
         reservationService.deleteReservationById(id);
 
-        return "redirect:/reservation/active_reservation";
+        String currentUserEmail = principal.getName();
+        User currentUser = userService.findUserByEmail(currentUserEmail);
+        if (currentUser.getUserRole().name().equals("USER")){
+            return "redirect:/reservation/active_reservation";
+        }else{
+            return "redirect:/reservation/active_reservation/all";
+        }
 
     }
 
