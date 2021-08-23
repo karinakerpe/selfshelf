@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface IssuedBooksRepository extends JpaRepository <IssuedBooks, Long> {
-    //@Override
-    //List<IssuedBooks> findAll();
-
 
     List<IssuedBooks> findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(Long userId);
 

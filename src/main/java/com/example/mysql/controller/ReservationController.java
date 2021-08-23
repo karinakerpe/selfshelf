@@ -29,18 +29,6 @@ public class ReservationController {
     private final ReservationService reservationService;
 
 
-//    @GetMapping("/{id}")
-//    public String makeReservation(@PathVariable("id") Long id, Model model, Principal principal){
-//        String currentUserEmail = principal.getName();
-//        User currentUser = userService.findUserByEmail(currentUserEmail);
-//        Book currentBook = bookRecordService.getBookById(id);
-//        currentBook.setBookStatus(RESERVED);
-//        reservationService.reserveBook(currentBook, currentUser);
-//        return "redirect:/books";
-//
-//    }
-
-
     @GetMapping("/{id}")
     public String viewReservation(@PathVariable("id") Long id, Model model, Principal principal) {
         String currentUserEmail = principal.getName();

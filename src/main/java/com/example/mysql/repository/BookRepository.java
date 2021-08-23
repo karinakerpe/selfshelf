@@ -11,7 +11,9 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findAllByTitle(String title);
+
     List<Book> findAllByIdBetween(Long startId, Long endId);
+
     @Query(value = "select b from Book  b where b.title=:title AND b.author=:author")
     List<Book> findByTitleAndAuthor(@Param("title") String title, @Param("author") String firstName);
 

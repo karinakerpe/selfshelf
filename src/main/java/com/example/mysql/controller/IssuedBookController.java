@@ -54,7 +54,7 @@ public class IssuedBookController {
         if (currentUser.getUserRole().name().equals("USER")){
         return "redirect:/books";
         }else{
-            return "redirect:/reservation/active_reservation/all";
+            return "redirect:/issued/admin";
         }
     }
 

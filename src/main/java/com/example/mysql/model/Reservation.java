@@ -44,10 +44,6 @@ public class Reservation {
         private Book book;
 
 
-//    private Long userId;
-//    private Long bookId;
-
-
     public Reservation(LocalDate reservationStartDate, LocalDate reservationEndDate, User user, Book book) {
         this.reservationStartDate = reservationStartDate;
         this.reservationEndDate = reservationEndDate;

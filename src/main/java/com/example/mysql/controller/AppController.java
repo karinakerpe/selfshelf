@@ -36,13 +36,10 @@ public class AppController {
     @GetMapping
     public String viewHomePage(Model model, @Param("randomBook") String randomBook) {
         model.addAttribute("books", bookRecordService.getAllBooks());
-
         List<Book> listRandom = bookRecordService.findRandom();
         model.addAttribute("randomBook", listRandom);
-
         String randomIsbn = listRandom.get(0).getIsbn();
         model.addAttribute("randomIsbn", randomIsbn);
-
         return "index";
     }
 
@@ -55,29 +52,13 @@ public class AppController {
     //page after login
     @GetMapping("/account")
     public String showAdminAccountPage(Model model, Principal principal) {
-//        User user = service.getById(id);
-//        model.addAttribute("fullName", user.getFullName());
-//        model.addAttribute("adminId", user.getId());
-
         String currentUserEmail = principal.getName();
-            User currentUser = service.findUserByEmail(currentUserEmail);
-
-
-            model.addAttribute("fullName", currentUser.getFullName());
+        User currentUser = service.findUserByEmail(currentUserEmail);
+        model.addAttribute("fullName", currentUser.getFullName());
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("id", currentUser.getId());
-
         return "user_account";
     }
-
-//    @GetMapping("/admin-account")
-//    public String showAdminAccountPage(Model model) {
-//        Long currentUserId = currentUser.getCurrentUserId();
-//        User currentUser = service.getById(currentUserId);
-//        model.addAttribute("fullName", currentUser.getFullName());
-//        return "admin-account";
-//    }
-
 
     @GetMapping("/users")
     public String viewPageUsers(Model model, Principal principal) {
@@ -90,7 +71,6 @@ public class AppController {
         return "users";
     }
 
-
     @GetMapping("/users/update/{id}")
     public String editById(@PathVariable("id") Long id, Model model, Principal principal) {
         String currentUserEmail = principal.getName();
@@ -99,10 +79,8 @@ public class AppController {
         User user = service.getById(id);
         model.addAttribute("user", user);
         model.addAttribute("currentUser", currentUser);
-
         return "user_form";
     }
-
 
     @PostMapping("/users/update/{id}")
     public String editUser(@PathVariable("id") Long id, @Valid User user, BindingResult result, Model model) {
@@ -114,7 +92,6 @@ public class AppController {
         try {
             if (service.getById(id).getUserRole().name().isEmpty()) {
                 return "redirect:/account";
-
             } else {
                 return "redirect:/users";
             }
@@ -122,16 +99,13 @@ public class AppController {
             return "redirect:/account";
         }
 
-        }
+    }
 
 
-        @PostMapping("/save")
-        public String saveUser (User user){
-            service.save(user);
-
-            return "redirect:/list_users";
-
-        }
-
+    @PostMapping("/save")
+    public String saveUser(User user) {
+        service.save(user);
+        return "redirect:/list_users";
 
     }
+}

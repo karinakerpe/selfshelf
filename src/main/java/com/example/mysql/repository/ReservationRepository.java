@@ -22,8 +22,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findReservationsByBookIdEqualsAndUserIdEquals (Long bookId, Long userId);
 
 
-
-
     @Query("select u from Reservation u where u.reservationEndDate >= ?1")
     List<Reservation> findReservationsByReservationEndDateAfter(LocalDate date);
 
