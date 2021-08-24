@@ -67,7 +67,8 @@ public class IssuedBookController {
         List<IssuedBooks> issuedBooks = issuedBookService.getIssuedBooksWithStatusActive();
         model.addAttribute("issuedBooks", issuedBooks);
         issuedBookService.showAllIssuedBooks();
-
+        LocalDate localDate = LocalDate.now();
+        model.addAttribute("date", localDate);
         return "issued_admin";
     }
 

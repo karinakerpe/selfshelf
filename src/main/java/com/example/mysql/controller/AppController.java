@@ -65,6 +65,8 @@ public class AppController {
 
         String currentUserEmail = principal.getName();
         User currentUser = service.findUserByEmail(currentUserEmail);
+        Long currentUserId = currentUser.getId();
+        model.addAttribute("id", currentUserId);
         model.addAttribute("listUsers", service.listAll());
         model.addAttribute("firstName", currentUser.getFullName());
         model.addAttribute("permissions", currentUser.getUserRole().getGrantedAuthorities());

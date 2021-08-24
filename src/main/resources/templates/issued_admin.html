@@ -111,7 +111,8 @@
                     <td th:text="${issuedBook.book.id}"></td>
                     <td th:text="${issuedBook.book.author}"></td>
                     <td th:text="${issuedBook.book.title}"></td>
-                    <td th:text="${issuedBook.issueEndDate}"></td>
+                    <td th:if = "${!issuedBook.issueEndDate.isAfter(date)}" class="table-danger" th:text="${issuedBook.issueEndDate}"></td>
+                    <td th:if = "${issuedBook.issueEndDate.isAfter(date)}" th:text="${issuedBook.issueEndDate}"></td>
                     <td><a th:href="@{/issued/return/{id}(id=${issuedBook.id})}" class="btn btn-warning btn-sm">Return Book</a></td>
 
                     <!--                        <a method = "post"-->
