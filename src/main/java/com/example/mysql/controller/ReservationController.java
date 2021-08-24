@@ -36,7 +36,7 @@ public class ReservationController {
         Book currentBook = bookRecordService.getBookById(id);
         model.addAttribute("book", currentBook);
         model.addAttribute("user", currentUser);
-        LocalDate startDate = LocalDate.now();
+        LocalDate startDate = LocalDate.now().minusDays(30);
         LocalDate endDate = startDate.plusDays(7);
 
         model.addAttribute("startDate", startDate);
@@ -53,7 +53,7 @@ public class ReservationController {
         User currentUser = userService.findUserByEmail(currentUserEmail);
         Book currentBook = bookRecordService.getBookById(id);
         currentBook.setBookStatus(RESERVED);
-        LocalDate startDate = LocalDate.now();
+        LocalDate startDate = LocalDate.now().minusDays(30);
         LocalDate endDate = startDate.plusDays(7);
         reservationService.reserveBook(currentBook, currentUser, startDate, endDate);
         return "redirect:/books";

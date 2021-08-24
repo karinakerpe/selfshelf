@@ -64,7 +64,7 @@ public class IssuedBookService {
         return issuesWithHistory;    }
 
     public void issueBookWithActiveReservation(Book book, User user) {
-        LocalDate issueStartDate = LocalDate.now();
+        LocalDate issueStartDate = LocalDate.now().minusDays(30);
         LocalDate issueEndDate = issueStartDate.plusDays(21);
         book.setBookStatus(BookStatus.ISSUED);
         bookDBService.updateBook(book);

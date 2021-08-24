@@ -129,7 +129,7 @@
                     <td th:text="${reservation.book.title}"></td>
                     <td th:text="${reservation.reservationEndDate}"></td>
                     <td>
-                        <a  th:href="@{/reservation/delete/{id}(id=${reservation.id})}"  class="btn btn-warning">
+                        <a  th:href="@{/reservation/delete/{id}(id=${reservation.id})}"  class="btn btn-outline-danger btn-sm">
                            Delete Reservation</button>
                         </a>
                     </td>
