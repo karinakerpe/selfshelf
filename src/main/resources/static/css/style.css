@@ -62,7 +62,7 @@ body {
 /*header section*/
 .hero_area {
   height: 100vh;
-  background-color: #b5caee;
+  background-color: #647391;
   background-image: url(../images/hero-bg.jpg);
   background-size: cover;
 }
@@ -247,7 +247,7 @@ a:focus {
   width: 15px;
   height: 15px;
   background-color: transparent;
-  border: 3px solid #ffffff;
+  border: 3px solid #ede6e6;
   border-radius: 100%;
   opacity: 1;
 }
