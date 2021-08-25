@@ -34,10 +34,8 @@ public class AppController {
     private CurrentUser currentUser;
 
     @GetMapping
-    public String viewHomePage(Model model, @Param("randomBook") String randomBook) {
-        model.addAttribute("books", bookRecordService.getAllBooks());
+    public String viewHomePage(Model model)
         List<Book> listRandom = bookRecordService.findRandom();
-        model.addAttribute("randomBook", listRandom);
         String randomIsbn = listRandom.get(0).getIsbn();
         model.addAttribute("randomIsbn", randomIsbn);
         return "index";
