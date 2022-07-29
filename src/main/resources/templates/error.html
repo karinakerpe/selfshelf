@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="ISO-8859-1">
-    <title>BOB</title>
+    <title>ERROR</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
+    <a class="navbar-brand" href="#">SELF-SHELF</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -65,22 +65,24 @@
 <body>
 
 <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-<div class="container">
-    <div class="row">
-        <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+<div class="container border-danger rounded">
+    <p></p>
+    <div class="row btn btn-outline-danger disabled">
+        <h4>You got an error!</h4>
+        <h5 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h5>
         <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
     </div>
 </div>
 <div class="container">
     <div class="row">
 
-        <a sec:authorize="isAuthenticated()" class="btn btn-outline-info" href="user_account.html" th:href="@{/account}">Back
+        <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark" href="user_account.html" th:href="@{/account}">Please go back
             to
             Home Page</a>
     </div>
     <p></p>
     <div class="row">
-        <a sec:authorize="!isAuthenticated()" class="btn btn-outline-info" href="index.html" th:href="@{/}">Back to Home
+        <a sec:authorize="!isAuthenticated()" class="btn btn-outline-dark" href="index.html" th:href="@{/}">Please go back to Home
             Page</a>
     </div>
 </div>

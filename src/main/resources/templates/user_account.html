@@ -3,7 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="ISO-8859-1">
-    <title>BoB</title>
+    <title>--b--</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">BOB IN WONDERLAND</a>
+    <a class="navbar-brand" href="/books">SELF-SHELF</a>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <!-- fonts style -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
@@ -64,74 +64,75 @@
         </ul>
     </div>
 </nav>
+<p></p>
 <div class = "container">
     <div class = "row">
-        <h1> Welcome, <span th:text = "${fullName}"></span></h1>
+        <h1 class="btn-outline-dark"> Welcome, <span th:text = "${fullName}"></span></h1>
     </div>
 
 
-    <img sec:authorize="hasRole('ROLE_USER')" src="https://media2.giphy.com/media/UQ84N6dIWObZWILqsE/giphy.gif?cid=ecf05e47yokw40o9mjgmg0903osvyix8nuhb0iu09w63rjbr&rid=giphy.gif&ct=g">
-    <img sec:authorize="hasRole('ROLE_ADMIN')" src="https://64.media.tumblr.com/8b5615d9aec31dce7f6efa9c3d662a0f/a6074468b010c213-db/s500x750/22da6d00f25de09033e75a5c927dfd46c6afab6d.gifv">
+<!--    <img sec:authorize="hasRole('ROLE_USER')" src="https://media2.giphy.com/media/UQ84N6dIWObZWILqsE/giphy.gif?cid=ecf05e47yokw40o9mjgmg0903osvyix8nuhb0iu09w63rjbr&rid=giphy.gif&ct=g">-->
+<!--    <img sec:authorize="hasRole('ROLE_ADMIN')" src="https://64.media.tumblr.com/8b5615d9aec31dce7f6efa9c3d662a0f/a6074468b010c213-db/s500x750/22da6d00f25de09033e75a5c927dfd46c6afab6d.gifv">-->
 
 </div>
 </div>
-<section class="info_section layout_padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="info_menu">
-                    <h5>
-                        QUICK LINKS
-                    </h5>
-                    <ul class="navbar-nav  ">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="info_course">
-                    <h5>
-                        TOP RATED LIBRARY
-                    </h5>
-                    <p>
-                        Bob Library has achieved a lot of world prestigious rewards during last thousand years
-                    </p>
-                </div>
-            </div>
+<!--<section class="info_section layout_padding">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-3">-->
+<!--                <div class="info_menu">-->
+<!--                    <h5>-->
+<!--                        QUICK LINKS-->
+<!--                    </h5>-->
+<!--                    <ul class="navbar-nav  ">-->
+<!--                        <li class="nav-item active">-->
+<!--                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="login">Login</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <div class="info_course">-->
+<!--                    <h5>-->
+<!--                        TOP RATED LIBRARY-->
+<!--                    </h5>-->
+<!--                    <p>-->
+<!--                        Bob Library has achieved a lot of world prestigious rewards during last thousand years-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <div class="col-md-5 offset-md-1">
-                <div class="info_news">
-                    <h5>
-                        FOR ANY QUERY, PLEASE WRITE TO US
-                    </h5>
-                    <div class="info_contact">
-                        <a href="">
-                            bob@wonderland.com
-                        </a>
-                        <a href="">
-                            Call : +777777777
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!--            <div class="col-md-5 offset-md-1">-->
+<!--                <div class="info_news">-->
+<!--                    <h5>-->
+<!--                        FOR ANY QUERY, PLEASE WRITE TO US-->
+<!--                    </h5>-->
+<!--                    <div class="info_contact">-->
+<!--                        <a href="">-->
+<!--                            bob@wonderland.com-->
+<!--                        </a>-->
+<!--                        <a href="">-->
+<!--                            Call : +777777777-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 
 <!-- end info section -->
 
 <!-- footer section -->
-<footer class="container-fluid footer_section">
-    <p>
-        &copy; 2021 All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
-    </p>
-</footer>
+<!--<footer class="container-fluid footer_section">-->
+<!--    <p>-->
+<!--        &copy; 2021 All Rights Reserved By-->
+<!--        <a href="https://html.design/">Free Html Templates</a>-->
+<!--    </p>-->
+<!--</footer>-->
 
 </body>
 </html>

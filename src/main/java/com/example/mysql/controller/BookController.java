@@ -1,9 +1,6 @@
 package com.example.mysql.controller;
 
-import com.example.mysql.model.Book;
-import com.example.mysql.model.BookSearch;
-import com.example.mysql.model.IssuedBooks;
-import com.example.mysql.model.Reservation;
+import com.example.mysql.model.*;
 import com.example.mysql.model.user.User;
 import com.example.mysql.service.*;
 import lombok.RequiredArgsConstructor;
@@ -90,6 +87,7 @@ private IssuedBookService issuedBookService;
 
     @GetMapping("/books/{id}")
     public String deleteBook(@PathVariable Long id) {
+        Book currentBook =  bookRecordService.getBookById(id);
         bookRecordService.deleteBookById(id);
         return "redirect:/books";
     }
