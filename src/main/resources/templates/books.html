@@ -70,35 +70,29 @@
     </div>
 </nav>
 <p></p>
-<div class="container">
+<div class="container align-items-center">
     <div class="row">
-        <div class="col-lg-15">
-            <div class="row">
-                <div class="col-6 col-md-4">
-                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/book/new}" class="btn btn-outline-info">Add
-                        New Book</a>
+
+                <div class="col">
+                    <a href="/books/search" class="btn btn-outline-info"> Search Book </a>
                 </div>
-            </div>
-            <p></p>
-            <div class = "row">
-                <div class="col-6 col-md-4">
-                    <a href="/books/search" class="btn btn-outline-info"> Search
-                        Book </a>
-                </div>
-            </div>
-            <p></p>
-            <div class="row">
-                <div class="col-6 col-md-4">
+
+                <div class="col">
                     <a class="btn btn-outline-secondary" href="user_account.html" th:href="@{/account}">Back to Home
                         Page</a>
                 </div>
-
-            </div>
-<p></p>
-
+        <div class="col">
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/book/new}" class="btn btn-outline-info">Add
+                New Book</a>
         </div>
 
-        <div sec:authorize="hasRole('ROLE_USER')" class="container">
+        <div class="col"></div>
+    </div>
+<p></p>
+        <div class="row">
+
+
+        <div sec:authorize="hasRole('ROLE_USER')" class="row">
             <div class="row">
                 <h1>Available Books</h1>
                 <table class="table table-light table-hover table-sm table-bordered ">
@@ -190,7 +184,7 @@
 
 
             </div>
-
+        </div>
 
             <p></p>
             <!--===============================================================================================-->
@@ -206,6 +200,7 @@
 
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

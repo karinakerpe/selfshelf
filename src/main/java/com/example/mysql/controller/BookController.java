@@ -13,21 +13,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping
 public class BookController {
-@Autowired
+    @Autowired
     private BookRecordService bookRecordService;
-@Autowired
-private BookDBService bookDBService;
-@Autowired
-private ReservationService reservationService;
-@Autowired
-private IssuedBookService issuedBookService;
+    @Autowired
+    private BookDBService bookDBService;
+    @Autowired
+    private ReservationService reservationService;
+    @Autowired
+    private IssuedBookService issuedBookService;
 
 
-@Autowired
+    @Autowired
     private UserService service;
 
     @GetMapping("/books")
@@ -39,18 +41,17 @@ private IssuedBookService issuedBookService;
         model.addAttribute("allBooks", bookDBService.getAllBooks());
         return "books";
     }
+
     @GetMapping("/book-main")
     public String showMainBookPage(Model model) {
-        model.addAttribute("books",bookRecordService.getAllBooks());
+        model.addAttribute("books", bookRecordService.getAllBooks());
         return "books";
     }
 
     @GetMapping("/book/new")
     public String createBookForm(Model model) {
-
         Book book = new Book();
         model.addAttribute("book", book);
-
         return "create_book";
     }
 
@@ -87,17 +88,17 @@ private IssuedBookService issuedBookService;
 
     @GetMapping("/books/{id}")
     public String deleteBook(@PathVariable Long id) {
-        Book currentBook =  bookRecordService.getBookById(id);
+        Book currentBook = bookRecordService.getBookById(id);
         bookRecordService.deleteBookById(id);
         return "redirect:/books";
     }
 
     @GetMapping("/books/info/{id}")
-    public String getBookInfo (@PathVariable Long id, Model model) {
+    public String getBookInfo(@PathVariable Long id, Model model) {
         Book currentBook = bookRecordService.getBookById(id);
-        model.addAttribute("books",currentBook);
+        model.addAttribute("books", currentBook);
         List<Reservation> reservations = reservationService.findReservationByBookId(id);
-        model.addAttribute("reservations",reservations);
+        model.addAttribute("reservations", reservations);
         List<IssuedBooks> issues = issuedBookService.findIssueBooksByBookIdWithIssueStatusActive(id);
         model.addAttribute("issues", issues);
         List<IssuedBooks> issueHistory = issuedBookService.findIssueBooksByBookIdWithIssueStatusHistory(id);
@@ -114,16 +115,15 @@ private IssuedBookService issuedBookService;
     }
 
 
-    @PostMapping (value = "/books/search")
-    public String getSearchedBook (@Valid BookSearch bookSearch, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
+    @PostMapping(value = "/books/search")
+    public String getSearchedBook(@Valid BookSearch bookSearch, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             return "result";
         }
         List<Book> books = bookRecordService.search(bookSearch);
         model.addAttribute("books", books);
         return "result";
     }
-
 
 
     @GetMapping(value = "/books/faq")
@@ -134,7 +134,4 @@ private IssuedBookService issuedBookService;
         model.addAttribute("pageName", "Book Search");
         return "faq";
     }
-
-
-
 }

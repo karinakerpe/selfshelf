@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.mysql.model.IssueStatus.ACTIVE;
 import static com.example.mysql.model.IssueStatus.HISTORY;
@@ -29,27 +30,23 @@ public class IssuedBookService {
     @Autowired
     private final ReservationService reservationService;
 
+
     public void issueBook(Book book, User user) {
         LocalDate issueStartDate = LocalDate.now();
         LocalDate issueEndDate = issueStartDate.plusDays(21);
-        IssueStatus issueStatus = IssueStatus.ACTIVE;
-        issuedBooksRepository.save(new IssuedBooks(issueStartDate, issueEndDate, user, book, issueStatus));
+        issuedBooksRepository.save(new IssuedBooks(issueStartDate, issueEndDate, user, book, IssueStatus.ACTIVE));
     }
 
     public List<IssuedBooks> showAllIssuedBooks() {
-        return (List<IssuedBooks>) issuedBooksRepository.findAll();
+        return issuedBooksRepository.findAll();
     }
 
     public List<IssuedBooks> findIssuedBooksByUserIdActive(Long userId) {
-        List <IssuedBooks> issuesWithActive = new ArrayList<>();
-        List <IssuedBooks> allIssues = issuedBooksRepository.findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(userId);
-        for (IssuedBooks issueBook: allIssues) {
-            if(issueBook.getIssueStatus().equals(ACTIVE)){
-                issuesWithActive.add(issueBook);
-            }
+        List<IssuedBooks> books = issuedBooksRepository.findAllByUserIdEquals(userId);
+        return books.stream()
+                .filter(issuedBooks -> issuedBooks.getBook().getBookStatus().equals(IssueStatus.ACTIVE) )
+                .collect(Collectors.toList());
 
-        }
-        return issuesWithActive;
     }
 
     public List<IssuedBooks> findIssuedBooksByUserIdHistory(Long userId) {

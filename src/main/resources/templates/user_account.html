@@ -69,9 +69,46 @@
     <div class = "row">
         <h1 class="btn-outline-dark"> Welcome, <span th:text = "${fullName}"></span></h1>
     </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="container">
+        <div class="row">
+            <h1>All Books</h1>
+            <table class="table table-light table-hover table-sm table-bordered ">
+                <thead class="table-info">
+                <tr>
+                    <th> ID</th>
+                    <th> Start Date</th>
+                    <th> End Date</th>
+                    <th> Book Title</th>
+                    <th> User name</th>
+                    <th> Actions</th>
+                </tr>
+                </thead>
 
 
-<!--    <img sec:authorize="hasRole('ROLE_USER')" src="https://media2.giphy.com/media/UQ84N6dIWObZWILqsE/giphy.gif?cid=ecf05e47yokw40o9mjgmg0903osvyix8nuhb0iu09w63rjbr&rid=giphy.gif&ct=g">-->
+                <tbody>
+                <tr th:each="issuedBook: ${bookList}">
+                    <td th:text="${issuedBook.id}"></td>
+                    <td th:text="${issuedBook.issueStartDate}"></td>
+                    <td th:text="${issuedBook.issueEndDate}"></td>
+                    <td th:text="${issuedBook.book.title}"></td>
+                    <td th:text="${issuedBook.user.getFullName}"></td>
+                    <td>
+                        
+                    <a th:if="${issuedBook.book.bookStatus.name().equals('ISSUED')}"
+                            th:href="@{/issued/return/{id}(id=${issuedBook.id})}" class="btn btn-warning btn-sm">Return Book</a>
+
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+
+
+        <!--    <img sec:authorize="hasRole('ROLE_USER')" src="https://media2.giphy.com/media/UQ84N6dIWObZWILqsE/giphy.gif?cid=ecf05e47yokw40o9mjgmg0903osvyix8nuhb0iu09w63rjbr&rid=giphy.gif&ct=g">-->
 <!--    <img sec:authorize="hasRole('ROLE_ADMIN')" src="https://64.media.tumblr.com/8b5615d9aec31dce7f6efa9c3d662a0f/a6074468b010c213-db/s500x750/22da6d00f25de09033e75a5c927dfd46c6afab6d.gifv">-->
 
 </div>

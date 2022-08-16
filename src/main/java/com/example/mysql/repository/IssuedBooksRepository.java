@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface IssuedBooksRepository extends JpaRepository <IssuedBooks, Long> {
 
+    List<IssuedBooks> findAllByUserIdEquals(Long userId);
     List<IssuedBooks> findIssuedBooksByUserIdEqualsOrderByIssueStartDateAsc(Long userId);
 
     List<IssuedBooks> findIssuedBooksByBookIdEqualsOrderByIssueEndDateAsc(Long bookId);
